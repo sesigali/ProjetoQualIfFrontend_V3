@@ -1,0 +1,12 @@
+.btn-component{
+    padding: 16px 90px;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    background-color: #194f01;
+    color: white;
+    font-size: 16px;
+    
+}

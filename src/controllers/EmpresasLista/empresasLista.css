@@ -1,0 +1,56 @@
+.empresasLista{
+    display: flex;
+    justify-content: column;
+    align-items: center;
+    margin-bottom: 10px;
+    
+}
+
+.lista {
+    position: relative;
+    text-decoration: none;
+    display: block;
+    padding: 15px 20px;
+    font-size: 16px;
+    padding: 10px 5px 10px 5px;
+    background-color: rgb(228, 243, 232);
+    margin: 5px;
+    color: black;
+}
+
+.lista:hover  
+{
+    background-color: #161920;
+    color: #fff;
+}
+
+.item1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.item2 {
+    margin-top: -10px;
+}
+
+.item1:hover::before, .item2:hover::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    background-color: #247D9E;
+    width: 6px;
+    height: 100%;
+}
+
+.btn-delete{
+    width: 15px;
+    height: 15px;
+}
+
+
+
+
+

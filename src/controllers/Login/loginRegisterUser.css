@@ -1,0 +1,95 @@
+.btn-exit1 {
+    position: absolute;
+    color: black;
+    width: 35px;
+    height: 30px;  
+    margin-top: 10px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.container-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    height: 100vh;
+    background-color: #e3f4e6;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-image: url('imagem\ \(31\).jpeg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #f0f0f0;
+}
+
+.content-login {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    box-shadow: 0 1px 2px #0003;
+    background-color: black;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.label-login {
+    font-size: 18px;
+    color: white;
+}
+
+.label-erro {
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+}
+
+.label-registrar {
+    font-size: 14px;
+    color: white;
+}
+
+.span-registrar2 {
+    text-decoration: none;
+    color: #194f01;
+    font-weight: 900;
+}
+
+/* #####RESETAR SENHA */
+
+.content-resetSenha{
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 0 1px rgba(21, 191, 5, 0.2);
+    background-color: black;
+    padding: 5px 20px 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.title1{
+    color: white;
+    font-size: 18px;
+    
+}
+.span-resetSenha {
+    font-size: 14px;
+    color: rgb(22, 22, 23);
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+.span-cancelar{
+    font-size: 14px;
+    color: rgb(8, 39, 246);
+    text-decoration: underline;
+}
+

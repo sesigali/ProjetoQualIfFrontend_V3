@@ -1,0 +1,139 @@
+@media print {
+    body {
+      margin: 0;
+      padding: 0;
+      line-height: 1.4em;
+    }
+
+    .containerRelatorio {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .relatorio {
+      background-color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .relatorioInfo {
+      margin: 0 20px 0 20px;
+    }
+
+    .subtituloRelatorio {
+      padding: 5px 0 5px 0;
+      display: flex;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 25px;
+      color: hsla(146, 33%, 15%, 0.607);
+      background: #e8fccf;
+    }
+
+    .descricao {
+      margin-left: 30px;
+      margin-bottom: 5px;
+      font-weight: 500;
+      font-size: 20px;
+    }
+
+    .span {
+      font-weight: 450;
+      color: rgba(0, 11, 11, 0.619);
+    }
+
+    .tituloRelatorio {
+      font-size: 40px;
+      margin-top: -30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .imageRelatorio {
+      width: 12%;
+      margin-top: 1rem;
+    }
+
+    .linhahr {
+      border: 2px solid #82BB42;
+      
+    }
+
+    .btn-relatorioInfo {
+      display: none; 
+    }
+  }
+
+
+  .containerRelatorio {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .relatorio {
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .relatorioInfo {
+    margin: 0 20px 0 20px;
+  }
+
+  .subtituloRelatorio {
+    margin-top: -13px;
+    background-color: #e8fccf;
+    display: flex;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 25px;
+    color: hsla(146, 33%, 15%, 0.607);
+  }
+
+  .descricao {
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  .span {
+    font-weight: 450;
+    color: rgba(0, 11, 11, 0.619);
+  }
+
+  .tituloRelatorio {
+    font-size: 40px;
+    margin-top: -30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .imageRelatorio {
+    width: 12%;
+    margin-top: 1rem;
+  }
+
+  .linhahr {
+    border: 2px solid #82BB42;
+  }
+
+  .btn-relatorioInfo{
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .vermelho{
+    color: red;
+    
+  }
+  .azul{
+    color: blue;
+  }
+
