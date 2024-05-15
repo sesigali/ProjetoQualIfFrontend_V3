@@ -92,7 +92,7 @@ export default function RelatorioInfo() {
     const resultadoSolvenciaGeral = ((indice.ativoTotal) / (indice.passivoCirculante + indice.passivoNaoCirculante));
 
     const resultadoliquidezCorrente = ((indice.ativoCirculante) / (indice.passivoCirculante));
-    
+
     //***PATRIMONIO LIQUIDO***//
     // Calcula o requisito mínimo de 10% do valor estimado contrato
     const requisitoMinimo = (10 / 100) * ((empresa.valorEstimadoContrato));
@@ -123,11 +123,20 @@ export default function RelatorioInfo() {
     const formatarNumero = (numero) => {
         // Verifica se o número é undefined ou null antes de chamar toLocaleString
         if (numero === undefined || numero === null) {
-          return ''; // Ou qualquer valor padrão que você deseje para valores indefinidos
+            return ''; // Ou qualquer valor padrão que você deseje para valores indefinidos
         }
         return numero.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      };
-    
+    };
+
+
+    // Função para formatar o CNPJ
+    const formatarCnpj = (cnpj) => {
+        if (cnpj && cnpj.length === 14) {
+            return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+        }
+        return cnpj;
+    };
+
     return (
         <div className="containerRelatorio">
             <div className="">
@@ -143,10 +152,10 @@ export default function RelatorioInfo() {
                         <p className="subtituloRelatorio">Empresa</p>
                         <ul className="listaRelatorio">
                             <li className="descricao">Razão Social: <span className="span">{empresa.razaoSocial}</span></li>
-                            <li className="descricao">CNPJ: <span className="span">{empresa.cnpj}</span> </li>
+                            <li className="descricao">CNPJ: <span className="span">{formatarCnpj(empresa.cnpj)}</span> </li>
                             <li className="descricao">Contato da Empresa:  <span className="span">{empresa.contatoEmpresa}</span></li>
                             <li className="descricao">Número do pregão - Tipo de serviço: <span className="span">{empresa.tipoServico}</span></li>
-                            <li className="descricao">Valor estimado do contrato: <span className="span">{formatarNumero(empresa.valorEstimadoContrato)}</span></li>
+                            <li className="descricao">Valor estimado do contrato: R$ <span className="span">{formatarNumero(empresa.valorEstimadoContrato)}</span></li>
                         </ul>
                     </div>
 
@@ -189,7 +198,7 @@ export default function RelatorioInfo() {
                             <li className="descricao">Liquidez Geral: <span className={` ${resultadoLiquidezGeral < 1 ? 'vermelho' : 'azul'}`}>{resultadoLiquidezGeral.toFixed(2)}</span></li>
 
                             <li className="descricao">Solvência Geral: <span className={` ${resultadoSolvenciaGeral < 1 ? 'vermelho' : 'azul'}`}>{resultadoSolvenciaGeral.toFixed(2)}</span></li>
-                            
+
                             <li className="descricao">Liquidez Corrente: <span className={` ${resultadoliquidezCorrente < 1 ? 'vermelho' : 'azul'}`}>{resultadoliquidezCorrente.toFixed(2)}</span></li>
                         </ul>
                     </div>

@@ -1,0 +1,73 @@
+/* .background {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* .form-container {
+    background-color: black;
+    padding: 10px;
+    margin: 30px;
+    border-radius: 5px;
+} */
+
+/* .form {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+} */
+
+/* .title {
+    font-size: 30px;
+    margin: 10px;
+    color: white;
+} */
+
+.input {
+    font-size: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #e7e7e7;
+    cursor: default;
+}
+
+/* .button-container {
+    display: flex;
+    justify-content: center;
+} */
+
+/* .button-submit {
+    padding: 10px;
+    width: 100px;
+    background-color: green;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+} */
+
+/* .button-cancelar{
+    padding: 10px;
+    width: 100px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 20px;
+} */
+
+/* .background {
+    background-image: url('imagem\ \(31\).jpeg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #f0f0f0;
+} */

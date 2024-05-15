@@ -24,6 +24,11 @@ export default function EmpresaInfo() {
                 const data = response.data;
 
                 if (data) {
+
+                    // Formatando o CNPJ
+                    const cnpjFormatted = formatarCnpj(data.cnpj);
+                    data.cnpj = cnpjFormatted;
+
                     setUltimoCadastro(data);
                 }
             } catch (error) {
@@ -34,12 +39,17 @@ export default function EmpresaInfo() {
         fetchUltimoCadastro();
     }, []);
 
+    // Função para formatar o CNPJ
+    const formatarCnpj = (cnpj) => {
+        return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
+    };
+
     return (
         <div className="container">
 
             <div>
                 <Link to='/Home'>
-                    <AiFillHome className="link-icon" title="Página Principal"/>
+                    <AiFillHome className="link-icon" title="Página Principal" />
 
                 </Link>
             </div>
