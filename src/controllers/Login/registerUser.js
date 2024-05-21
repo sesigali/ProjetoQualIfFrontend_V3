@@ -4,46 +4,36 @@ import Button from '../../components/Button/button';
 import Input from '../../components/Input/input';
 import './loginRegisterUser.css'
 import { FaRegWindowClose } from 'react-icons/fa';
-
+import axios from 'axios';
 
 export default function RegisterUser() {
     const [email, setEmail] = useState('');
-    const [emailConf, setEmailConf] = useState('');
     const [senha, setSenha] = useState('');
-    const [senhaConf, setSenhaConf] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    //****PRECISO DECLARAR UMA VARIAVEL PARA TRAZER O HOOKS CRIADO ****/
-    // const {registar} = useAutenticacao();
+    const handleRegister = async (event) => {
+        event.preventDefault();
 
-    const handleRegister = () => {
-
-        if (!email || !emailConf || !senha || !senhaConf) {
+        if (!email || !senha) {
             setError('Preencha todos os campos');
-            return;
-
-        } else if (email !== emailConf) {
-            setError("Os e-mails não são iguais");
-            return;
-        } else if (senha !== senhaConf) {
-            setError("Senhas não são iguais");
             return;
         }
 
-        //****SE ESTIVER TUDO CERTO SENHA E EMAIL, IRÁ REGISTAR OS DADOS DO LOGIN****
-        // const resp = registrar(email, senha);
-
-        //****SE TIVER ALGUM ERRO AO FAZER O REGISTRO, RETORNA O ERRO ****
-        // if(resp){
-        //     setError(resp);
-        //     return;
-        // }
-
-
-        alert("Usuário Cadastrado com sucesso!");
-        navigate("/Home")
-
+        try {
+            const response = await axios.post('http://localhost:8888/usuario/adicionar',{ email, senha });
+            if (response.status === 201) {
+                alert("Usuário Cadastrado com sucesso!");
+                navigate("/Home");
+            }
+        } catch (error) {
+            if (error.response) {
+                setError(error.response.data.Erro);
+            } else {
+                setError("Erro ao cadastrar usuário");
+            }
+        }
+        
     };
 
 
@@ -58,7 +48,7 @@ export default function RegisterUser() {
 
                 <div className="content-login">
 
-                    <label className="label-login">SISTEMA DE LOGIN</label>
+                    <label className="label-login">REGISTRAR LOGIN</label>
                     
                     <Input
                         type="email"
@@ -67,25 +57,12 @@ export default function RegisterUser() {
                         onChange={(e) => [setEmail(e.target.value), setError("")]}
                     />
                     <Input
-                        type="email"
-                        placeholder="Confirme seu E-mail"
-                        value={emailConf}
-                        onChange={(e) => [setEmailConf(e.target.value), setError("")]}
-                    />
-
-                    <Input
-                        type="senha"
+                        type="password"
                         placeholder="Digite sua Senha"
                         value={senha}
                         onChange={(e) => [setSenha(e.target.value), setError("")]}
                     />
-                    <Input
-                        type="senha"
-                        placeholder="Confirme sua Senha"
-                        value={senhaConf}
-                        onChange={(e) => [setSenhaConf(e.target.value), setError("")]}
-                    />
-
+            
                     <label className="label-erro">{error}</label>
 
                     <Button Text="Inscrever-se" onClick={handleRegister} />

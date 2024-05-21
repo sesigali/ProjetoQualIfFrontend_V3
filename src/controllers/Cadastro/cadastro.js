@@ -50,7 +50,7 @@ export default function Cadastro() {
     
         RequisicaoCadastroEmpresa(empresa)
             .then((novaEmpresa) => {
-                // Redireciona o usuário para a página inicial após o cadastro
+                // Redireciona o usuário para a página empresaInfo após o cadastro
                 window.location.href = '/empresaInfo';
             })
             .catch((error) => {
