@@ -21,10 +21,21 @@ export default function LoginUser() {
       });
 
       if (response.status === 200) {
-        const userData = response.data;
-        // Redirecionar o usuário para a página inicial ou dashboard
-        navigate('/Home');
-        console.log('Login successful', userData);
+        const userData = response.data.usuario; // Acesse a propriedade `usuario` dentro de `response.data`
+
+        // Log the entire userData for debugging
+        console.log('Response data:', userData);
+
+        if (userData && userData.idUsuario) {
+          // Armazena o idUsuario no Local Storage
+          localStorage.setItem('idUsuario', userData.idUsuario);
+          console.log('idUsuario saved:', userData.idUsuario);
+
+          // Redirecionar o usuário para a página inicial ou dashboard
+          navigate('/Home');
+        } else {
+          console.error('idUsuario is undefined:', userData);
+        }
       }
     } catch (error) {
       console.error('Error during login', error);
@@ -46,14 +57,14 @@ export default function LoginUser() {
             type="email"
             placeholder="Digite seu E-mail"
             value={email}
-            onChange={(e) => [setEmail(e.target.value), setError("")]}
+            onChange={(e) => [setEmail(e.target.value), setError('')]}
           />
 
           <Input
             type="password"
             placeholder="Digite sua Senha"
             value={senha}
-            onChange={(e) => [setSenha(e.target.value), setError("")]}
+            onChange={(e) => [setSenha(e.target.value), setError('')]}
           />
 
           <label className="label-erro">{error}</label>

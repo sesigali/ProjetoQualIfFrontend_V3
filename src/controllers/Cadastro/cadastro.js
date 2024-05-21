@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavbarCadastro from '../../components/Navbar/navbar-cadastro/navbar-cadastro';
 import Footer from '../../components/Footer/footer';
 import './cadastro.css';
@@ -7,25 +7,36 @@ import { Link } from 'react-router-dom';
 import MaskInput from '../../components/MaskInput/maskInput';
 
 export default function Cadastro() {
+    // Recupera o idUsuario do localStorage
+    const idUsuario = localStorage.getItem('idUsuario') || ''; // Obter idUsuario do localStorage ou definir como ''
 
     const [formData, setFormData] = useState({
         razaoSocial: '',
-        //cnpj: '',
+        cnpj: '',
         contatoEmpresa: '',
         tipoServico: '',
         valorEstimadoContrato: '',
+        idUsuario: idUsuario,
     });
 
-    const[cnpj, setCnpj] = useState('');
+    useEffect(() => {
+        if (idUsuario) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                idUsuario: idUsuario,
+            }));
+        }
+    }, [idUsuario]);
 
-    function handleChange(e){
-        setCnpj(e.target.value);
-      }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     const RequisicaoCadastroEmpresa = (empresa) => {
         return axios.post('http://localhost:8888/empresa/adicionar', empresa)
             .then((response) => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     return response.data; // Retorna a nova empresa criada
                 }
             })
@@ -38,17 +49,9 @@ export default function Cadastro() {
     const handleCadastroEmpresa = (event) => {
         event.preventDefault();
 
-        const empresa = {
-            razaoSocial: formData.razaoSocial,
-            //cnpj: formData.cnpj,
-            cnpj: cnpj,
-            contatoEmpresa: formData.contatoEmpresa,
-            tipoServico: formData.tipoServico,
-            valorEstimadoContrato: formData.valorEstimadoContrato,
-        };
+        console.log("Dados enviados para o backend:", formData); // Adicione este console.log
 
-    
-        RequisicaoCadastroEmpresa(empresa)
+        RequisicaoCadastroEmpresa(formData)
             .then((novaEmpresa) => {
                 // Redireciona o usuário para a página inicial após o cadastro
                 window.location.href = '/empresaInfo';
@@ -70,25 +73,17 @@ export default function Cadastro() {
                             <input
                                 className='input'
                                 type="text"
+                                name="razaoSocial"
                                 placeholder="Razão social"
                                 required
                                 value={formData.razaoSocial}
-                                onChange={(e) => setFormData({ ...formData, razaoSocial: e.target.value })}
+                                onChange={handleChange}
                             />
 
-                            {/* <input
-                                className='input'
-                                type="string"
-                                placeholder="CNPJ"
-                                required
-                                value={formData.cnpj}
-                                onChange={(e) => setFormData({ ...formData, cnpj: e.target.value })}
-                            /> */}
-
-                            <MaskInput 
+                            <MaskInput
                                 name="cnpj"
                                 mask="99.999.999/9999-99"
-                                value={cnpj}
+                                value={formData.cnpj}
                                 onChange={handleChange}
                                 placeholder="CNPJ"
                                 required
@@ -97,36 +92,40 @@ export default function Cadastro() {
                             <input
                                 className='input'
                                 type="text"
+                                name="contatoEmpresa"
                                 placeholder="Contato da empresa: Digite seu E-mail"
                                 required
                                 value={formData.contatoEmpresa}
-                                onChange={(e) => setFormData({ ...formData, contatoEmpresa: e.target.value })}
+                                onChange={handleChange}
                             />
                             <input
                                 className='input'
                                 type="text"
-                                placeholder="Número do pregão - Tipo de serviço "
+                                name="tipoServico"
+                                placeholder="Número do pregão - Tipo de serviço"
                                 required
                                 value={formData.tipoServico}
-                                onChange={(e) => setFormData({ ...formData, tipoServico: e.target.value })}
+                                onChange={handleChange}
                             />
                             <input
                                 className='input'
-                                type="string"
+                                type="text"
+                                name="valorEstimadoContrato"
                                 placeholder="Valor estimado do contrato"
                                 required
                                 value={formData.valorEstimadoContrato}
-                                onChange={(e) => setFormData({ ...formData, valorEstimadoContrato: e.target.value })}
+                                onChange={handleChange}
                             />
                             <div className='button-container'>
-                                <button className='button-submit' type='submit' >
+                                <button className='button-submit' type='submit'>
                                     Cadastrar
                                 </button>
 
                                 <Link to='/home'>
-                                    <button className='button-cancelar'>Cancelar</button>
+                                    <button className='button-cancelar' type="button">
+                                        Cancelar
+                                    </button>
                                 </Link>
-
                             </div>
                         </form>
                     </div>
