@@ -24,7 +24,7 @@ export default function RegisterUser() {
             const response = await axios.post('http://localhost:8888/usuario/adicionar',{ email, senha });
             if (response.status === 201) {
                 alert("Usuário Cadastrado com sucesso!");
-                navigate("/Home");
+                navigate("/login");
             }
         } catch (error) {
             if (error.response) {

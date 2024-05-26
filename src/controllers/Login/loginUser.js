@@ -51,7 +51,7 @@ export default function LoginUser() {
 
       <div className="container-login">
         <div className="content-login">
-          <label className="label-login">SISTEMA DE LOGIN</label>
+          <label className="label-login">LOGIN</label>
 
           <Input
             type="email"

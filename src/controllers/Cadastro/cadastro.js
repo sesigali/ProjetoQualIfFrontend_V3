@@ -5,6 +5,7 @@ import './cadastro.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import MaskInput from '../../components/MaskInput/maskInput';
+import { NumericFormat } from 'react-number-format';
 
 export default function Cadastro() {
     // Recupera o idUsuario do localStorage
@@ -31,6 +32,14 @@ export default function Cadastro() {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
+    };
+
+    const handleValueChange = (values) => {
+        const { value } = values;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            valorEstimadoContrato: value
+        }));
     };
 
     const RequisicaoCadastroEmpresa = (empresa) => {
@@ -100,22 +109,29 @@ export default function Cadastro() {
                             />
                             <input
                                 className='input'
-                                type="text"
+                                t ype="text"
                                 name="tipoServico"
                                 placeholder="Número do pregão - Tipo de serviço"
                                 required
                                 value={formData.tipoServico}
                                 onChange={handleChange}
                             />
-                            <input
+
+                            <NumericFormat
                                 className='input'
                                 type="text"
                                 name="valorEstimadoContrato"
                                 placeholder="Valor estimado do contrato"
                                 required
                                 value={formData.valorEstimadoContrato}
-                                onChange={handleChange}
+                                onValueChange={handleValueChange}
+                                allowNegative={false}
+                                decimalScale={2}
+                                decimalSeparator=','
+                                thousandSeparator='.'
+                                prefix='R$ '
                             />
+  
                             <div className='button-container'>
                                 <button className='button-submit' type='submit'>
                                     Cadastrar
