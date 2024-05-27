@@ -109,7 +109,7 @@ export default function Cadastro() {
                             />
                             <input
                                 className='input'
-                                t ype="text"
+                                type="text"
                                 name="tipoServico"
                                 placeholder="Número do pregão - Tipo de serviço"
                                 required

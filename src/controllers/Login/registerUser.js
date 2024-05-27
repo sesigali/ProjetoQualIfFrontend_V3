@@ -9,19 +9,25 @@ import axios from 'axios';
 export default function RegisterUser() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [senhaConf, setSenhaConf] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleRegister = async (event) => {
         event.preventDefault();
 
-        if (!email || !senha) {
+        if (!email || !senha || !senhaConf) {
             setError('Preencha todos os campos');
             return;
         }
 
+        else if (senha !== senhaConf) {
+            setError("Senhas não são iguais");
+            return;
+        }
+
         try {
-            const response = await axios.post('http://localhost:8888/usuario/adicionar',{ email, senha });
+            const response = await axios.post('http://localhost:8888/usuario/adicionar', { email, senha });
             if (response.status === 201) {
                 alert("Usuário Cadastrado com sucesso!");
                 navigate("/login");
@@ -33,7 +39,7 @@ export default function RegisterUser() {
                 setError("Erro ao cadastrar usuário");
             }
         }
-        
+
     };
 
 
@@ -49,7 +55,7 @@ export default function RegisterUser() {
                 <div className="content-login">
 
                     <label className="label-login">REGISTRAR LOGIN</label>
-                    
+
                     <Input
                         type="email"
                         placeholder="Digite seu E-mail"
@@ -62,7 +68,14 @@ export default function RegisterUser() {
                         value={senha}
                         onChange={(e) => [setSenha(e.target.value), setError("")]}
                     />
-            
+
+                    <Input
+                        type="password"
+                        placeholder="Confirme sua Senha"
+                        value={senhaConf}
+                        onChange={(e) => [setSenhaConf(e.target.value), setError("")]}
+                    />
+
                     <label className="label-erro">{error}</label>
 
                     <Button Text="Inscrever-se" onClick={handleRegister} />
