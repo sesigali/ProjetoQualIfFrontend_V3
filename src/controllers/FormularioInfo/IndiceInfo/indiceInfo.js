@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import PatrimonioLiqInfo from "../PatrimonioLiqInfo/patrimonioLiqInfo";
 import ComplementacaoInfo from "../ComplementacaoInfo/complementacaoInfo";
+import { NumericFormat } from "react-number-format";
 
 export default function IndiceInfo({
   idEmpresa,
@@ -17,66 +18,53 @@ export default function IndiceInfo({
   const [ativoTotal, setAtivoTotal] = useState("0");
   const [passivoCirculante, setPassivoCirculante] = useState("0");
   const [passivoNaoCirculante, setPassivoNaoCirculante] = useState("0");
+  const [patrimonioLiquido, setPatrimonioLiquido] = useState("0");
   const [liquidezGeral, setLiquidezGeral] = useState(null);
   const [solvenciaGeral, setSolvenciaGeral] = useState(null);
   const [liquidezCorrente, setLiquidezCorrente] = useState(null);
-  const [patrimonioLiquido, setPatrimonioLiquido] = useState("0");
   const [erro, setErro] = useState(null);
   const [formularioEnviado, setFormularioEnviado] = useState(false);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  const handleInputChange = (values, name) => {
+    const { floatValue } = values;
 
-    if (/^(\d*[\.,]?\d*)$/.test(value) || value === "") {
-      if (name === "ativoCirculante") setAtivoCirculante(value);
-      if (name === "ativoReaLongoPrazo") setAtivoRealizavelLongoPrazo(value);
-      if (name === "ativoTotal") setAtivoTotal(value);
-      if (name === "passivoCirculante") setPassivoCirculante(value);
-      if (name === "passivoNaoCirculante") setPassivoNaoCirculante(value);
+    if (name === "ativoCirculante") setAtivoCirculante(floatValue);
+    if (name === "ativoReaLongoPrazo") setAtivoRealizavelLongoPrazo(floatValue);
+    if (name === "ativoTotal") setAtivoTotal(floatValue);
+    if (name === "passivoCirculante") setPassivoCirculante(floatValue);
+    if (name === "passivoNaoCirculante") setPassivoNaoCirculante(floatValue);
 
-      const ativoCirculanteValue = parseFloat(ativoCirculante.replace(",", ".")) || 0;
-      const ativoRealizavelLongoPrazoValue = parseFloat(ativoReaLongoPrazo.replace(",", ".")) || 0;
-      const ativoTotalValue = parseFloat(ativoTotal.replace(",", ".")) || 0;
-      const passivoCirculanteValue = parseFloat(passivoCirculante.replace(",", ".")) || 0;
-      const passivoNaoCirculanteValue = parseFloat(passivoNaoCirculante.replace(",", ".")) || 0;
+    const ativoCirculanteValue = ativoCirculante;
+    const ativoRealizavelLongoPrazoValue = ativoReaLongoPrazo;
+    const ativoTotalValue = ativoTotal;
+    const passivoCirculanteValue = passivoCirculante;
+    const passivoNaoCirculanteValue = passivoNaoCirculante;
 
-      const liquidezGeralResult =
-        (ativoCirculanteValue + ativoRealizavelLongoPrazoValue) /
-        (passivoCirculanteValue + passivoNaoCirculanteValue);
+    const liquidezGeralResult =
+      (ativoCirculanteValue + ativoRealizavelLongoPrazoValue) /
+      (passivoCirculanteValue + passivoNaoCirculanteValue);
+    const solvenciaGeralResult = ativoTotalValue / (passivoCirculanteValue + passivoNaoCirculanteValue);
+    const liquidezCorrenteResult = ativoCirculanteValue / passivoCirculanteValue;
 
-      const solvenciaGeralResult = ativoTotalValue / (passivoCirculanteValue + passivoNaoCirculanteValue);
-      const liquidezCorrenteResult = ativoCirculanteValue / passivoCirculanteValue;
-
-      if (!isNaN(liquidezGeralResult) && isFinite(liquidezGeralResult)) {
-        setLiquidezGeral(liquidezGeralResult.toFixed(2));
-      } else {
-        setLiquidezGeral("Indefinido");
-      }
-
-      if (!isNaN(solvenciaGeralResult) && isFinite(solvenciaGeralResult)) {
-        setSolvenciaGeral(solvenciaGeralResult.toFixed(2));
-      } else {
-        setSolvenciaGeral("Indefinido");
-      }
-
-      if (!isNaN(liquidezCorrenteResult) && isFinite(liquidezCorrenteResult)) {
-        setLiquidezCorrente(liquidezCorrenteResult.toFixed(2));
-      } else {
-        setLiquidezCorrente("Indefinido");
-      }
+    if (!isNaN(liquidezGeralResult) && isFinite(liquidezGeralResult)) {
+      setLiquidezGeral(liquidezGeralResult.toFixed(2));
+    } else {
+      setLiquidezGeral("Indefinido");
     }
+
+    if (!isNaN(solvenciaGeralResult) && isFinite(solvenciaGeralResult)) {
+      setSolvenciaGeral(solvenciaGeralResult.toFixed(2));
+    } else {
+      setSolvenciaGeral("Indefinido");
+    }
+
+    if (!isNaN(liquidezCorrenteResult) && isFinite(liquidezCorrenteResult)) {
+      setLiquidezCorrente(liquidezCorrenteResult.toFixed(2));
+    } else {
+      setLiquidezCorrente("Indefinido");
+    }
+
   };
-
-  //APAGAR ESSE MÉTODO, NAO ESTÁ SENDO MAIS UTILIZADO
-  useEffect(() => {
-    setErro(null);
-
-    if (!valorEstimadoContrato || isNaN(valorEstimadoContrato)) {
-      setErro("Por favor, forneça um valor válido para o Valor Estimado do Contrato.");
-      return;
-    }
-
-  }, [valorEstimadoContrato, patrimonioLiquido]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -107,59 +95,82 @@ export default function IndiceInfo({
       <form onSubmit={handleSubmit}>
         <div className="indiceInfo">
           <label>Ativo Circulante:</label>
-          <input
-            type="text"
+          <NumericFormat
             name="ativoCirculante"
             value={ativoCirculante}
-            onChange={handleInputChange}
+            thousandSeparator="."
+            decimalSeparator=","
+            onValueChange={(values) => handleInputChange(values, "ativoCirculante")}
+            allowNegative={false}
+            decimalScale={2}
           />
         </div>
+
         <div className="indiceInfo">
           <label>Ativo Realizável a Longo Prazo:</label>
-          <input
-            type="text"
+          <NumericFormat
             name="ativoReaLongoPrazo"
             value={ativoReaLongoPrazo}
-            onChange={handleInputChange}
+            thousandSeparator="."
+            decimalSeparator=","
+            onValueChange={(values) => handleInputChange(values, "ativoReaLongoPrazo")}
+            allowNegative={false}
+            decimalScale={2}
           />
+
         </div>
         <div className="indiceInfo">
           <label>Ativo Total:</label>
-          <input
-            type="text"
+          <NumericFormat
             name="ativoTotal"
             value={ativoTotal}
-            onChange={handleInputChange}
+            thousandSeparator="."
+            decimalSeparator=","
+            onValueChange={(values) => handleInputChange(values, "ativoTotal")}
+            allowNegative={false}
+            decimalScale={2}
           />
+
         </div>
         <div className="indiceInfo">
           <label>Passivo Circulante:</label>
-          <input
-            type="text"
+          <NumericFormat
             name="passivoCirculante"
             value={passivoCirculante}
-            onChange={handleInputChange}
+            thousandSeparator="."
+            decimalSeparator=","
+            onValueChange={(values) => handleInputChange(values, "passivoCirculante")}
+            allowNegative={false}
+            decimalScale={2}
           />
+
         </div>
         <div className="indiceInfo">
           <label>Passivo Não Circulante:</label>
-          <input
-            type="text"
+          <NumericFormat
             name="passivoNaoCirculante"
             value={passivoNaoCirculante}
-            onChange={handleInputChange}
+            thousandSeparator="."
+            decimalSeparator=","
+            onValueChange={(values) => handleInputChange(values, "passivoNaoCirculante")}
+            allowNegative={false}
+            decimalScale={2}
           />
+
         </div>
         <div>
           <label className='patrimonioInfo'>Patrimônio Líquido:</label>
-          <input
-            type="text"
+          <NumericFormat
             name="patrimonioLiquido"
             value={patrimonioLiquido}
-            onChange={(e) => setPatrimonioLiquido(e.target.value)}
+            thousandSeparator="."
+            decimalSeparator=","
+            onValueChange={(values) => setPatrimonioLiquido(values.floatValue)}
+            allowNegative={false}
+            decimalScale={2}
           />
         </div>
-        {/* <button type="submit">Enviar</button> */}
+
       </form>
       <div>
         {formularioEnviado && <p>Dados enviados com sucesso!</p>}
@@ -195,8 +206,7 @@ export default function IndiceInfo({
         passivoCirculanteIndice={passivoCirculante}
         passivoNaoCirculanteIndice={passivoNaoCirculante}
         patrimonioLiquidoIndice={patrimonioLiquido}
-
-        />
+      />
     </div>
   );
 }
