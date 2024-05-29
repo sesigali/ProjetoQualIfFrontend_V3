@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CadastroDbIndo from "../CadastroDbInfo/CadastroDbInfo";
+import { NumericFormat } from "react-number-format";
 
 export default function CompromissosAssumidosInfo({
   idEmpresa,
@@ -20,7 +21,7 @@ export default function CompromissosAssumidosInfo({
 
   compromissosAssumidos,
 }) {
-  const [receitaBruta, setReceitaBruta] = useState("");
+  const [receitaBruta, setReceitaBruta] = useState("0");
   const [declaracao, setDeclaracao] = useState(null);
   const [dre, setDre] = useState(null);
   const [divergencia, setDivergencia] = useState(0);
@@ -36,6 +37,11 @@ export default function CompromissosAssumidosInfo({
   const handleDreUpload = (e) => {
     const file = e.target.files[0];
     setDre(file);
+  };
+
+  const handleValueChange = (values) => {
+    const { value } = values;
+    setReceitaBruta(value);
   };
 
   useEffect(() => {
@@ -87,8 +93,8 @@ export default function CompromissosAssumidosInfo({
     <div>
       <h1 className="title-info">Compromissos Assumidos</h1>
       <p>Caso a diferença entre a receita bruta discriminada na Demonstração do Resultado do <br />
-      Exercício (DRE) e a declaração apresentada seja maior que 10% (dez por cento) positivo <br />
-      ou negativo em relação à receita bruta, o licitante deverá apresentar justificativas.</p>
+        Exercício (DRE) e a declaração apresentada seja maior que 10% (dez por cento) positivo <br />
+        ou negativo em relação à receita bruta, o licitante deverá apresentar justificativas.</p>
 
       <form onSubmit={handleSubmit}>
         <div className="compromissoInfo">
@@ -97,17 +103,22 @@ export default function CompromissosAssumidosInfo({
         </div>
         <div className="compromissoInfo">
           <label>Receita Bruta:</label>
-          <input
-            type="number"
+          <NumericFormat
+            name="receitaBruta"
             value={receitaBruta}
-            onChange={(e) => setReceitaBruta(e.target.value)}
+            onValueChange={(values) => handleValueChange(values, "receitaBruta")}
+            allowNegative={false}
+            decimalScale={2}
+            decimalSeparator=','
+            thousandSeparator='.'
           />
+          
         </div>
         <div className="compromissoInfo">
           <label>Divergência Percentual: </label>
           <span>{divergencia.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%</span>
         </div>
-        
+
         {temJustificativa && (
           <div>
             <h3 className="sub-title">Empresa encaminhou justificativa para Receita Bruta superior ou inferior a 10%?</h3>
@@ -129,7 +140,7 @@ export default function CompromissosAssumidosInfo({
               />
               Não
             </label>
-          </div>        
+          </div>
         )}
 
         <div className="compromissoInfo">
@@ -151,13 +162,13 @@ export default function CompromissosAssumidosInfo({
         {/* {<button type="submit">Enviar</button>} */}
 
         <hr />
-        <CadastroDbIndo 
+        <CadastroDbIndo
           idEmpresa={idEmpresa}
 
           docRecuperacaoCertidao={docRecuperacaoCertidao}
           certidaoNaturezaCertidao={certidaoNaturezaCertidao}
           anexoCertidao={anexoCertidao}
-          
+
           balancoConfLeiBalanco={balancoConfLeiBalanco}
           anexoBalanco={anexoBalanco}
 

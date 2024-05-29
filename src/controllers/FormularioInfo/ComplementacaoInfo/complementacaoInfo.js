@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CompromissosAssumidosInfo from "../CompromissoInfo/compromissoInfo";
+import { NumericFormat } from "react-number-format";
 
 export default function ComplementacaoInfo({
   idEmpresa,
@@ -26,7 +27,7 @@ export default function ComplementacaoInfo({
   const [umDozeAvos, setUmDozeAvos] = useState("");
   const [txCclValorEstimado, settxCclValorEstimado] = useState("");
   const [indiceResult, setIndiceResult] = useState("");
-  const [compromissosAssumidos, setCompromissosAssumidos] = useState("");
+  const [compromissosAssumidos, setCompromissosAssumidos] = useState("0");
   const [erro, setErro] = useState(null);
   const [ultimoCadastro, setUltimoCadastro] = useState({ valorEstimadoContrato: '' });
 
@@ -95,10 +96,15 @@ export default function ComplementacaoInfo({
       // Adicione a lógica para enviar os compromissos para o backend
       console.log('DaBD', compromissos);
       const response = await axios.post('http://localhost:8888/complementacao/adicionar', compromissos);
-      console.log(response.data); 
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleValueChange = (values) => {
+    const { value } = values;
+    setCompromissosAssumidos(value);
   };
 
   return (
@@ -107,11 +113,11 @@ export default function ComplementacaoInfo({
       <h1 className="title-info">Complementação da Qualificação Econômico-Financeira</h1>
       <form onSubmit={handleCadastroCompromissos}>
         <p>Comprovação de possuir Capital Circulante Líquido (CCL) ou Capital de Giro <br />
-        (Ativo Circulante - Passivo Circulante) de, no mínimo, 16,66% (dezesseis inteiros <br />
-        e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
+          (Ativo Circulante - Passivo Circulante) de, no mínimo, 16,66% (dezesseis inteiros <br />
+          e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
 
         <div className="complInfo">
-          <label>Capital Circulante Líquido (CCL) ou Capital de Giro: R$ {isNaN(ccl) ? "Indefinido" : ccl.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</label>         
+          <label>Capital Circulante Líquido (CCL) ou Capital de Giro: R$ {isNaN(ccl) ? "Indefinido" : ccl.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</label>
         </div>
         <div className="complInfo">
           <label>Valor Estimado do Contrato: R$ {ultimoCadastro.valorEstimadoContrato ? ultimoCadastro.valorEstimadoContrato.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'Indefinido'}</label>
@@ -122,7 +128,7 @@ export default function ComplementacaoInfo({
             <p><h4>Resultados</h4></p>
             <p>Requisito mínimo CCL 16,66% do valor estimado: R$ {indiceResult.requisitoMinimo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
 
-            
+
             <p>Total de Capital de Giro (CCL) estimado sobre o valor da contratação: {isNaN(txCclValorEstimado) ? "Indefinido" : txCclValorEstimado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%</p>
 
             <p>Atende aos Requisitos: <span className={indiceResult.atendeRequisitos ? "texto-azul" : "texto-vermelho"}>{indiceResult.atendeRequisitos ? "Sim" : "Não"}</span></p>
@@ -132,21 +138,35 @@ export default function ComplementacaoInfo({
               <p>A Declaração de Compromissos Assumidos deve informar que 1/12 (um doze avos)<br>
               </br> dos contratos firmados pela licitante não é superior ao Patrimônio Líquido da licitante </p>
             </div>
+
             <div className="complInfo">
               <label>Compromissos Assumidos:</label>
-              <input
-                type="number"
+              <NumericFormat
+                name="compromissosAssumido"
                 value={compromissosAssumidos}
-                onChange={(e) => setCompromissosAssumidos(e.target.value)}
+                onValueChange={(values) => handleValueChange(values, "compromissosAssumidos")}
+                allowNegative={false}
+                decimalScale={2}
+                decimalSeparator=','
+                thousandSeparator='.'
               />
+
             </div>
             <p>1/12 do valor dos compromissos assumidos ultrapassa o Patrimonial Líquido: <span className={indiceResult.ultrapassaValor ? "texto-vermelho" : "texto-azul"}>
-                {indiceResult.ultrapassaValor ? "Sim" : "Não"}</span>
+              {indiceResult.ultrapassaValor ? "Sim" : "Não"}</span>
             </p>
             {indiceResult.ultrapassaValor}
             {indiceResult.atendeRequisitos}
-            <p>Patrimônio Líquido: R$ {indiceResult.patrimonioLiquidoNum}
+            <p>Patrimônio Líquido: R$ {indiceResult.patrimonioLiquidoNum.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
+
+            
+            
+
+
+
+
+
             <p>1/12 dos Compromissos Assumidos: R$ {isNaN(umDozeAvos) ? "Indefinido" : umDozeAvos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
           </div>
@@ -155,13 +175,13 @@ export default function ComplementacaoInfo({
         {/* <button type="submit">Enviar</button> */}
       </form>
       <hr />
-      <CompromissosAssumidosInfo 
+      <CompromissosAssumidosInfo
         idEmpresa={idEmpresa}
 
         docRecuperacaoCertidao={docRecuperacaoCertidao}
         certidaoNaturezaCertidao={certidaoNaturezaCertidao}
         anexoCertidao={anexoCertidao}
-        
+
         balancoConfLeiBalanco={balancoConfLeiBalanco}
         anexoBalanco={anexoBalanco}
 
