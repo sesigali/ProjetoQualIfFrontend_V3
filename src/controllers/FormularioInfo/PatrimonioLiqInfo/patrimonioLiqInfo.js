@@ -58,7 +58,7 @@ export default function PatrimonioLiqInfo({
       </div>
       <div className='patrimonioInfo'>
         <label>Patrimônio Líquido: R$ </label>
-        <span>{patrimonioLiquido.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
+        <span>{patrimonioLiquido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
       </div>
       {indiceResult && (
         <div>
