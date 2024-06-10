@@ -7,7 +7,7 @@ export default function CertidaoInfo({
     valorEstimadoContrato
 }) {
     const [formData, setFormData] = useState({
-        certidao: '',
+        certidao: '-',
         docRecuperacao: 'N/A',
         anexoCertidao: '',
         idEmpresa: '',

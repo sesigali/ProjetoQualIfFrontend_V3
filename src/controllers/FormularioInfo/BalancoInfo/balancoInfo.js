@@ -10,7 +10,7 @@ export default function BalancoInfo({
     anexoCertidao,
 }) {
     const [formData, setFormData] = useState({
-        balancoConfLei: '',
+        balancoConfLei: '-',
         anexoBalanco: null,
         idEmpresa: '',
     });
