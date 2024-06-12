@@ -115,10 +115,10 @@ export default function CompromissosAssumidosInfo({
           <span>{compromissosAssumidos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
         </div>
 
-        {/* <div className="compromissoInfo">
+        <div className="compromissoInfo">
           <label>Divergência Percentual: </label>
           <span>{divergencia.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%</span>
-        </div> */}
+        </div>
 
         {temJustificativa && (
           <div>
