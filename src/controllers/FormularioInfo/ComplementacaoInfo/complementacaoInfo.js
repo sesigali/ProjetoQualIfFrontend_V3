@@ -150,25 +150,22 @@ export default function ComplementacaoInfo({
                 decimalSeparator=','
                 thousandSeparator='.'
               />
-
             </div>
-            <p>1/12 do valor dos compromissos assumidos ultrapassa o Patrimonial Líquido: <span className={indiceResult.ultrapassaValor ? "texto-vermelho" : "texto-azul"}>
-              {indiceResult.ultrapassaValor ? "Sim" : "Não"}</span>
+            
+            <p>1/12 dos Compromissos Assumidos: R$ {isNaN(umDozeAvos) ? "Indefinido" : umDozeAvos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
+
             {indiceResult.ultrapassaValor}
             {indiceResult.atendeRequisitos}
+
             <p>Patrimônio Líquido: R$ {indiceResult.patrimonioLiquidoNum.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
 
-            
-            
-
-
-
-
-
-            <p>1/12 dos Compromissos Assumidos: R$ {isNaN(umDozeAvos) ? "Indefinido" : umDozeAvos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            <p>1/12 do valor dos compromissos assumidos ultrapassa o Patrimonial Líquido: <span className={indiceResult.ultrapassaValor ? "texto-vermelho" : "texto-azul"}>
+              {indiceResult.ultrapassaValor ? "Sim" : "Não"}</span>
             </p>
+
+
           </div>
         )}
 

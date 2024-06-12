@@ -98,10 +98,6 @@ export default function CompromissosAssumidosInfo({
 
       <form onSubmit={handleSubmit}>
         <div className="compromissoInfo">
-          <label>Compromissos Assumidos: R$ </label>
-          <span>{compromissosAssumidos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-        </div>
-        <div className="compromissoInfo">
           <label>Receita Bruta:</label>
           <NumericFormat
             name="receitaBruta"
@@ -112,12 +108,17 @@ export default function CompromissosAssumidosInfo({
             decimalSeparator=','
             thousandSeparator='.'
           />
-          
         </div>
+
         <div className="compromissoInfo">
+          <label>Compromissos Assumidos: R$ </label>
+          <span>{compromissosAssumidos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+        </div>
+
+        {/* <div className="compromissoInfo">
           <label>Divergência Percentual: </label>
           <span>{divergencia.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%</span>
-        </div>
+        </div> */}
 
         {temJustificativa && (
           <div>
