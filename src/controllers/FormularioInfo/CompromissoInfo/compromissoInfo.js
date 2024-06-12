@@ -122,7 +122,7 @@ export default function CompromissosAssumidosInfo({
 
         {temJustificativa && (
           <div>
-            <h3 className="sub-title">Empresa encaminhou justificativa para Receita Bruta superior ou inferior a 10%?</h3>
+            <h3 className="sub-title">Empresa encaminhou justificativa para a diferença entre a Receita Bruta e a Declação de Compromissos Assumidos é superior ou inferior a 10%?</h3>
             <label className="label-certidaoInfo">
               <input
                 type="radio"
