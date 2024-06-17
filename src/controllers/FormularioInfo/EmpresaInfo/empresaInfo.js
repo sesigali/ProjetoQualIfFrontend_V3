@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Footer from "../../../components/Footer/footer";
 import CertidaoInfo from "../CertidaoInfo/certidaoInfo";
 import axios from "axios";
+import host from "../../../components/Host/host";
 import "../style/formStyle.css";
 import "./empresaInfo.css"
 import { Link } from "react-router-dom";
@@ -20,7 +21,7 @@ export default function EmpresaInfo() {
     useEffect(() => {
         async function fetchUltimoCadastro() {
             try {
-                const response = await axios.get('http://localhost:8888/empresa/ultimoCadastro');
+                const response = await axios.get(`${host.API_BASE_URL}/empresa/ultimoCadastro`);
                 const data = response.data;
 
                 if (data) {

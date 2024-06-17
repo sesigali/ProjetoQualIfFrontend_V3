@@ -5,6 +5,7 @@ import Input from '../../components/Input/input';
 import './loginRegisterUser.css'
 import { FaRegWindowClose } from 'react-icons/fa';
 import axios from 'axios';
+import host from '../../components/Host/host';
 
 export default function RegisterUser() {
     const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ export default function RegisterUser() {
         }
 
         try {
-            const response = await axios.post('http://localhost:8888/usuario/adicionar', { email, senha });
+            const response = await axios.post(`${host.API_BASE_URL}/usuario/adicionar`, { email, senha });
             if (response.status === 201) {
                 alert("Usuário Cadastrado com sucesso!");
                 navigate("/login");

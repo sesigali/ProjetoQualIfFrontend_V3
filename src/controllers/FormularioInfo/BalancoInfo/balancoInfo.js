@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import host from "../../../components/Host/host";
 import IndiceInfo from "../IndiceInfo/indiceInfo";
 
 export default function BalancoInfo({ 
@@ -61,7 +62,7 @@ export default function BalancoInfo({
     };
 
     const enviarDadosParaBackend = async (data) => {
-        const response = await axios.post('http://localhost:8888/balanco/adicionar', data);
+        const response = await axios.post(`${host.API_BASE_URL}/balanco/adicionar`, data);
         return response.data;
     };
 

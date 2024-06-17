@@ -3,6 +3,7 @@ import NavbarCadastro from '../../components/Navbar/navbar-cadastro/navbar-cadas
 import Footer from '../../components/Footer/footer';
 import './cadastro.css';
 import axios from 'axios';
+import host from '../../components/Host/host';
 import { Link } from 'react-router-dom';
 import MaskInput from '../../components/MaskInput/maskInput';
 import { NumericFormat } from 'react-number-format';
@@ -43,7 +44,7 @@ export default function Cadastro() {
     };
 
     const RequisicaoCadastroEmpresa = (empresa) => {
-        return axios.post('http://localhost:8888/empresa/adicionar', empresa)
+        return axios.post(`${host.API_BASE_URL}/empresa/adicionar`, empresa)
             .then((response) => {
                 if (response.status === 201) {
                     return response.data; // Retorna a nova empresa criada

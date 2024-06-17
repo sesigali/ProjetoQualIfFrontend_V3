@@ -3,6 +3,7 @@ import '../EmpresasLista/empresasLista.css'
 import { FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import host from "../../components/Host/host";
 
 //passando a propriedade (empresas) que virão do banco de dados
 
@@ -12,7 +13,7 @@ export default function EmpresasLista() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const response = await axios.get('http://localhost:8888/empresa/listartodas');
+                const response = await axios.get(`${host.API_BASE_URL}/empresa/listartodas`);
                 if (response.status === 200) {
                     const data = response.data;
                     setEmpresas(data);
@@ -28,7 +29,7 @@ export default function EmpresasLista() {
 
     const handleDelete = async (idEmpresa) => {
         try {
-            const response = await axios.delete(`http://localhost:8888/empresa/excluir/${idEmpresa}`);
+            const response = await axios.delete(`${host.API_BASE_URL}/empresa/excluir/${idEmpresa}`);
             if (response.status === 200) {
                 // Atualize a lista de empresas após a exclusão
                 const updatedEmpresas = empresas.filter(empresa => empresa.idEmpresa !== idEmpresa);

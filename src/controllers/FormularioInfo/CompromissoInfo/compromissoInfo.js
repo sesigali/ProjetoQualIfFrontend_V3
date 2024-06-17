@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import host from "../../../components/Host/host";
 import CadastroDbIndo from "../CadastroDbInfo/CadastroDbInfo";
 import { NumericFormat } from "react-number-format";
 
@@ -82,7 +83,7 @@ export default function CompromissosAssumidosInfo({
 
     try {
       console.log('DataBD', data);
-      const response = await axios.post('http://localhost:8888/compromisso/adicionar', data);
+      const response = await axios.post(`${host.API_BASE_URL}/compromisso/adicionar`, data);
       console.log(response.data);
     } catch (error) {
       console.error(error);

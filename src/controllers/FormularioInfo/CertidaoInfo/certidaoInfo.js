@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios';
+import host from "../../../components/Host/host";
 import BalancoInfo from "../BalancoInfo/balancoInfo";
 
 export default function CertidaoInfo({
@@ -52,7 +53,7 @@ export default function CertidaoInfo({
     }
 
     const enviarDadosParaBackend = (data) => {
-        axios.post('http://localhost:8888/certidao/adicionar', data) 
+        axios.post(`${host.API_BASE_URL}/certidao/adicionar`, data) 
             .then((response) => {
                 if (response.status === 200) {
                     return response.data; 

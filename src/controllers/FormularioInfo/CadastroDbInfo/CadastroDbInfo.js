@@ -561,6 +561,7 @@ export { usePrompt };
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import host from '../../../components/Host/host';
 import '../style/formStyle.css';
 
 export default function CadastroDbIndo({
@@ -596,7 +597,7 @@ export default function CadastroDbIndo({
     };
 
     try {
-      const response = await axios.post('http://localhost:8888/certidao/adicionar', certidaos);
+      const response = await axios.post(`${host.API_BASE_URL}/certidao/adicionar`, certidaos);
       console.log(response.data); 
     } catch (error) {
       console.error(error);
@@ -611,7 +612,7 @@ export default function CadastroDbIndo({
     };
 
     try {
-      const response = await axios.post('http://localhost:8888/balanco/adicionar', balancos);
+      const response = await axios.post(`${host.API_BASE_URL}/balanco/adicionar`, balancos);
       console.log(response.data); 
     } catch (error) {
       console.error(error);
@@ -630,7 +631,7 @@ export default function CadastroDbIndo({
     };
 
     try {
-      const response = await axios.post('http://localhost:8888/indice/adicionar', indices);
+      const response = await axios.post(`${host.API_BASE_URL}/indice/adicionar`, indices);
       console.log(response.data); 
     } catch (error) {
       console.error(error);
@@ -644,7 +645,7 @@ export default function CadastroDbIndo({
     };
 
     try {
-      const response = await axios.post('http://localhost:8888/complementacao/adicionar', complementacaos);
+      const response = await axios.post(`${host.API_BASE_URL}/complementacao/adicionar`, complementacaos);
       console.log(response.data); 
     } catch (error) {
       console.error(error);
@@ -661,7 +662,7 @@ export default function CadastroDbIndo({
     };
 
     try {
-      const response = await axios.post('http://localhost:8888/compromisso/adicionar', compromissos);
+      const response = await axios.post(`${host.API_BASE_URL}/compromisso/adicionar`, compromissos);
       console.log(response.data); 
     } catch (error) {
       console.error(error);
@@ -679,7 +680,7 @@ export default function CadastroDbIndo({
 
   const deleteAllData = useCallback(async () => {
     try {
-      const response = await axios.delete(`http://localhost:8888/empresa/excluir/${idEmpresa}`);
+      const response = await axios.delete(`${host.API_BASE_URL}/empresa/excluir/${idEmpresa}`);
       if (response.status === 200) {
         console.log('Dados excluídos com sucesso');
       } else {

@@ -6,6 +6,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaRegWindowClose } from 'react-icons/fa';
 import RecoverUser from './recoverUser';
 import axios from 'axios';
+import host from '../../components/Host/host';
 
 export default function LoginUser() {
   const [email, setEmail] = useState('');
@@ -15,7 +16,7 @@ export default function LoginUser() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8888/usuario/login', {
+      const response = await axios.post(`${host.API_BASE_URL}/usuario/login`, {
         email: email,
         senha: senha,
       });

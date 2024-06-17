@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import host from "../../../components/Host/host";
 import PatrimonioLiqInfo from "../PatrimonioLiqInfo/patrimonioLiqInfo";
 import ComplementacaoInfo from "../ComplementacaoInfo/complementacaoInfo";
 import { NumericFormat } from "react-number-format";
@@ -70,7 +71,7 @@ export default function IndiceInfo({
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8888/indice/adicionar', {
+      const response = await axios.post(`${host.API_BASE_URL}/indice/adicionar`, {
         ativoCirculante,
         ativoReaLongoPrazo,
         ativoTotal,

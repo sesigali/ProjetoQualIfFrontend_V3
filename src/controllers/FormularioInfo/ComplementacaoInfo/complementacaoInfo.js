@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import host from "../../../components/Host/host";
 import CompromissosAssumidosInfo from "../CompromissoInfo/compromissoInfo";
 import { NumericFormat } from "react-number-format";
 
@@ -35,7 +36,7 @@ export default function ComplementacaoInfo({
   useEffect(() => {
     async function fetchUltimoCadastro() {
       try {
-        const response = await axios.get('http://localhost:8888/empresa/ultimoCadastro');
+        const response = await axios.get(`${host.API_BASE_URL}/empresa/ultimoCadastro`);
         const data = response.data;
 
         if (data) {
@@ -95,7 +96,7 @@ export default function ComplementacaoInfo({
     try {
       // Adicione a lógica para enviar os compromissos para o backend
       console.log('DaBD', compromissos);
-      const response = await axios.post('http://localhost:8888/complementacao/adicionar', compromissos);
+      const response = await axios.post(`${host.API_BASE_URL}/complementacao/adicionar`, compromissos);
       console.log(response.data);
     } catch (error) {
       console.error(error);

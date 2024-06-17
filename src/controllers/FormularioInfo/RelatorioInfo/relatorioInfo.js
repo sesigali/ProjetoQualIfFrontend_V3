@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../RelatorioInfo/relatorioInfoStyle.css';
 import Image from '../RelatorioInfo/img/Imagem.png'
 import axios from 'axios';
+import host from "../../../components/Host/host";
 import { useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
@@ -33,7 +34,7 @@ export default function RelatorioInfo() {
     }, [idEmpresa]);
 
     const fetchEmpresa = async () => {
-        const response = await axios.get(`http://localhost:8888/empresa/listarempresa/${idEmpresa}`);
+        const response = await axios.get(`${host.API_BASE_URL}/empresa/listarempresa/${idEmpresa}`);
         if (response.data !== null && Object.keys(response.data).length !== 0) {
             setEmpresa(response.data);
         } else {
@@ -42,7 +43,7 @@ export default function RelatorioInfo() {
     };
 
     const fetchCertidao = async () => {
-        const response = await axios.get(`http://localhost:8888/certidao/listarcertidoes/${idEmpresa}`);
+        const response = await axios.get(`${host.API_BASE_URL}/certidao/listarcertidoes/${idEmpresa}`);
         if (response.data !== null && Object.keys(response.data).length !== 0) {
             setCertidao(response.data);
         } else {
@@ -51,7 +52,7 @@ export default function RelatorioInfo() {
     };
 
     const fetchBalanco = async () => {
-        const response = await axios.get(`http://localhost:8888/balanco/listarbalancos/${idEmpresa}`);
+        const response = await axios.get(`${host.API_BASE_URL}/balanco/listarbalancos/${idEmpresa}`);
         if (response.data !== null && Object.keys(response.data).length !== 0) {
             setBalanco(response.data);
         } else {
@@ -60,7 +61,7 @@ export default function RelatorioInfo() {
     };
 
     const fetchIndice = async () => {
-        const response = await axios.get(`http://localhost:8888/indice/listarindices/${idEmpresa}`);
+        const response = await axios.get(`${host.API_BASE_URL}/indice/listarindices/${idEmpresa}`);
         if (response.data !== null && Object.keys(response.data).length !== 0) {
             setIndice(response.data);
         } else {
@@ -69,7 +70,7 @@ export default function RelatorioInfo() {
     };
 
     const fetchComplementacao = async () => {
-        const response = await axios.get(`http://localhost:8888/complementacao/listarcomplementacoes/${idEmpresa}`);
+        const response = await axios.get(`${host.API_BASE_URL}/complementacao/listarcomplementacoes/${idEmpresa}`);
         if (response.data !== null && Object.keys(response.data).length !== 0) {
             setComplementacao(response.data);
         } else {
@@ -78,7 +79,7 @@ export default function RelatorioInfo() {
     };
 
     const fetchCompromisso = async () => {
-        const response = await axios.get(`http://localhost:8888/compromisso/listarcompromissos/${idEmpresa}`);
+        const response = await axios.get(`${host.API_BASE_URL}/compromisso/listarcompromissos/${idEmpresa}`);
         if (response.data !== null && Object.keys(response.data).length !== 0) {
             setCompromisso(response.data);
         } else {
