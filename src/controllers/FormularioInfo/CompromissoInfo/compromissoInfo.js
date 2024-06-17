@@ -127,18 +127,18 @@ export default function CompromissosAssumidosInfo({
             <label className="label-certidaoInfo">
               <input
                 type="radio"
-                value="sim"
-                checked={justificativaRecuperacao === 'sim'}
-                onChange={(e) => setJustificativaRecuperacao('sim')}
+                value="Sim"
+                checked={justificativaRecuperacao === 'Sim'}
+                onChange={(e) => setJustificativaRecuperacao('Sim')}
               />
               Sim
             </label>
             <label className="label-certidaoInfo">
               <input
                 type="radio"
-                value="não"
-                checked={justificativaRecuperacao === 'não'}
-                onChange={(e) => setJustificativaRecuperacao('não')}
+                value="Não"
+                checked={justificativaRecuperacao === 'Não'}
+                onChange={(e) => setJustificativaRecuperacao('Não')}
               />
               Não
             </label>

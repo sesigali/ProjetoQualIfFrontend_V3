@@ -20,7 +20,7 @@ export default function BalancoInfo({
 
     const handleBalancoChange = (e) => {
         setFormData({ ...formData, balancoConfLei: e.target.value });
-        if (e.target.value === 'não') {
+        if (e.target.value === 'Não') {
             alert('Você selecionou "Não" para Balanço em conformidade com a lei. Entre em contato com o pregoeiro para solicitar a documentação necessária ao licitante.');
         }
     };
@@ -74,14 +74,14 @@ export default function BalancoInfo({
                     {/* Validar balanço */}
                     <h3 className="sub-title">Balanço está em conformidade com a lei?</h3>
                     <label className="label-balancoInfo">
-                        <input type="radio" value="sim"
-                            checked={formData.balancoConfLei === 'sim'}
+                        <input type="radio" value="Sim"
+                            checked={formData.balancoConfLei === 'Sim'}
                             onChange={handleBalancoChange} />Sim
                     </label>
 
                     <label className="label-balancoInfo">
-                        <input type="radio" value="não"
-                            checked={formData.balancoConfLei === 'não'}
+                        <input type="radio" value="Não"
+                            checked={formData.balancoConfLei === 'Não'}
                             onChange={handleBalancoChange} />Não
                     </label>
                 </div>

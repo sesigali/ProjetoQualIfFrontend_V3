@@ -31,7 +31,7 @@ export default function CertidaoInfo({
 
         const { certidao, docRecuperacao, anexoCertidao } = formData;
 
-        if (docRecuperacao === 'não') {
+        if (docRecuperacao === 'Não') {
             alert('Você selecionou "Não" para recuperação judicial. Entre em contato com o pregoeiro para solicitar a documentação pendente.');
             return;
         }
@@ -75,8 +75,8 @@ export default function CertidaoInfo({
                     <input
                         type="radio"
                         name="certidao"
-                        value="positiva"
-                        checked={formData.certidao === 'positiva'}
+                        value="Positiva"
+                        checked={formData.certidao === 'Positiva'}
                         onChange={handleInputChange}
                     />Positiva
                 </label>
@@ -85,13 +85,13 @@ export default function CertidaoInfo({
                     <input
                         type="radio"
                         name="certidao"
-                        value="negativa"
-                        checked={formData.certidao === 'negativa'}
+                        value="Negativa"
+                        checked={formData.certidao === 'Negativa'}
                         onChange={handleInputChange}
                     />Negativa
                 </label>
 
-                {formData.certidao === 'positiva' && (
+                {formData.certidao === 'Positiva' && (
                     <div>
                         {/* Doc de recuperação judicial */}
                         <h3 className="sub-title">Empresa encaminhou documento de acolhimento  judicial?</h3>
@@ -99,8 +99,8 @@ export default function CertidaoInfo({
                             <input
                                 type="radio"
                                 name="docRecuperacao"
-                                value="sim"
-                                checked={formData.docRecuperacao === 'sim'}
+                                value="Sim"
+                                checked={formData.docRecuperacao === 'Sim'}
                                 onChange={handleInputChange}
                             />Sim
                            { /**SE SIM ANEXAR O COMPRAVANTE, SOMENTE PARA OS CASOS DE RECURAÇÃO JUDICIAL*/}
@@ -110,8 +110,8 @@ export default function CertidaoInfo({
                             <input
                                 type="radio"
                                 name="docRecuperacao"
-                                value="não"
-                                checked={formData.docRecuperacao === 'não'}
+                                value="Não"
+                                checked={formData.docRecuperacao === 'Não'}
                                 onChange={handleInputChange}
                             />Não
                         </label>
@@ -119,7 +119,7 @@ export default function CertidaoInfo({
                     
                 )}
 
-                {(formData.certidao === 'negativa' || formData.docRecuperacao === 'sim' || formData.docRecuperacao === 'não') && (
+                {(formData.certidao === 'Negativa' || formData.docRecuperacao === 'Sim' || formData.docRecuperacao === 'Não') && (
                     <div>
                         {/* Anexar Documento de Recuperação Judicial */}
                         <h3 className="sub-title">Anexar Certidão Negativa:</h3>
