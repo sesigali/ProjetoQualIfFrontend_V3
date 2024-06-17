@@ -29,7 +29,7 @@ export default function ComplementacaoInfo({
   const [txCclValorEstimado, settxCclValorEstimado] = useState("");
   const [indiceResult, setIndiceResult] = useState("");
   const [compromissosAssumidos, setCompromissosAssumidos] = useState("0");
-  const [erro, setErro] = useState(null);
+  const [erro, setErro] = useState(null); // eslint-disable-line no-unused-vars
   const [ultimoCadastro, setUltimoCadastro] = useState({ valorEstimadoContrato: '' });
 
   // Função para buscar os dados mais recentes quando o componente é montado
@@ -81,7 +81,7 @@ export default function ComplementacaoInfo({
       ultrapassaValor,
       patrimonioLiquidoIndice,
       patrimonioLiquidoNum,
-      txCclValorEstimado,
+      //txCclValorEstimado,
     });
   }, [ultimoCadastro.valorEstimadoContrato, capitalGiro, ativoCirculanteIndice, passivoCirculanteIndice, patrimonioLiquidoIndice, compromissosAssumidos]);
 

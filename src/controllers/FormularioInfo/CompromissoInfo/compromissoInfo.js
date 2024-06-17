@@ -27,7 +27,7 @@ export default function CompromissosAssumidosInfo({
   const [dre, setDre] = useState(null);
   const [divergencia, setDivergencia] = useState(0);
   const [temJustificativa, setTemJustificativa] = useState(false);
-  const [erro, setErro] = useState(null);
+  const [erro, setErro] = useState(null); // eslint-disable-line no-unused-vars
   const [justificativaRecuperacao, setJustificativaRecuperacao] = useState("N/A");
 
   const handleDeclaracaoUpload = (e) => {
