@@ -217,7 +217,7 @@ export default function RelatorioInfo() {
 
                         <h2 className="h2">Resultados</h2>
                         <ul className="listaRelatorio">
-                            <li className="descricao">Requisito Mínimo de 10%: <span className="span">{formatarNumero(requisitoMinimo)}</span></li>
+                            <li className="descricao">Requisito Mínimo de 10% do PL: <span className="span">{formatarNumero(requisitoMinimo)}</span></li>
                             <li className="descricao">Atende ao Requisito: <span className={atendeRequisitos ? "azul" : "vermelho"}>{atendeRequisitos ? "Sim" : "Não"}</span></li>
                             <li className="descricao">Taxa da Empresa: <span className="span">{porcentagemPatrimonio.toFixed(2)}% </span></li>
                         </ul>
