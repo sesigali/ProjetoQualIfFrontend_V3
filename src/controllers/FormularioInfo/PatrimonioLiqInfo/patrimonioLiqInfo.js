@@ -6,7 +6,7 @@ export default function PatrimonioLiqInfo({
 }) {
   //const [patrimonioLiquido, setPatrimonioLiquido] = useState('');
   const [indiceResult, setIndiceResult] = useState(null);
-  const [erro, setErro] = useState(null);
+  const [erro, setErro] = useState(null);// eslint-disable-line no-unused-vars
 
   useEffect(() => {
     setErro(null); // Limpa o erro a cada nova avaliação
