@@ -113,7 +113,7 @@ export default function CompromissosAssumidosInfo({
 
         <div className="compromissoInfo">
           <label>Compromissos Assumidos: R$ </label>
-          <span>{compromissosAssumidos.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+          <span>{parseFloat(compromissosAssumidos).toLocaleString('pt-BR',{ minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
         </div>
 
         <div className="compromissoInfo">

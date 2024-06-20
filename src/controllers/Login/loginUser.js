@@ -25,12 +25,12 @@ export default function LoginUser() {
         const userData = response.data.usuario; // Acesse a propriedade `usuario` dentro de `response.data`
 
         // Log the entire userData for debugging
-        console.log('Response data:', userData);
+        //console.log('Response data:', userData);
 
         if (userData && userData.idUsuario) {
           // Armazena o idUsuario no Local Storage
           localStorage.setItem('idUsuario', userData.idUsuario);
-          console.log('idUsuario saved:', userData.idUsuario);
+          //console.log('idUsuario saved:', userData.idUsuario);
 
           // Redirecionar o usuário para a página inicial ou dashboard
           navigate('/Home');

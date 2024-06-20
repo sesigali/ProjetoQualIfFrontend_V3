@@ -31,7 +31,7 @@ export default function PatrimonioLiqInfo({
     // Verifica se o Patrimônio Líquido foi preenchido
     if (patrimonioLiquido !== '') {
       // Converte o Patrimônio Líquido para número
-      const patrimonioLiquidoNum = parseFloat(patrimonioLiquido);
+      const patrimonioLiquidoNum = patrimonioLiquido;
 
       // Verifica se o Patrimônio Líquido atende ao requisito mínimo
       const atendeRequisitos = patrimonioLiquidoNum >= requisitoMinimo;
@@ -58,7 +58,7 @@ export default function PatrimonioLiqInfo({
       </div>
       <div className='patrimonioInfo'>
         <label>Patrimônio Líquido: R$ </label>
-        <span>{patrimonioLiquido.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+        <span>{parseFloat(patrimonioLiquido).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
       </div>
       {indiceResult && (
         <div>

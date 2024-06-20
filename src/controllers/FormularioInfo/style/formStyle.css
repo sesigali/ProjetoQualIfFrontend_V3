@@ -27,12 +27,12 @@
 
 .container-form{
     background-color:#fff;
-    padding: 10px 30px 10px 30px;
+    padding: 10px 30px;
+    max-width: 800px;
+    width: 100%;
 }
 
 .title-info{
-    /* display: flex;
-    justify-content: center; */
     margin-bottom: 5px;
     font-size: 30px;
     color: #2a2929;
@@ -43,55 +43,15 @@
     font-size: 20px;
     margin-bottom: 10px 0px;
     color: rgb(89, 88, 88);
-    
 }
 
-.certidaoInfo{
-    font-size: 20px;
-    margin: 10px 0px;
-    padding-right: 10px;
-     
-}
-
-.label-certidaoInfo{
+.certidaoInfo, .balancoInfo, .indiceInfo, .patrimonioInfo, .complInfo, .compromissoInfo {
     font-size: 20px;
     margin: 10px 0px;
     padding-right: 10px;
 }
 
-.balancoInfo{
-    font-size: 20px;
-    margin: 10px 0px;
-    padding-right: 10px;
-}
-
-.label-balancoInfo{
-    font-size: 20px;
-    margin: 10px 0px;
-    padding-right: 10px;
-}
-
-.indiceInfo{
-    /* font-size: 20px;
-    margin-bottom: 10px; */
-    font-size: 20px;
-    margin: 10px 0px;
-    padding-right: 10px;
-}
-
-.patrimonioInfo{
-    font-size: 20px;
-    margin: 10px 0px;
-    padding-right: 10px;
-}
-
-.complInfo{
-    font-size: 20px;
-    margin: 10px 0px;
-    padding-right: 10px;
-}
-
-.compromissoInfo{
+.label-certidaoInfo, .label-balancoInfo{
     font-size: 20px;
     margin: 10px 0px;
     padding-right: 10px;
