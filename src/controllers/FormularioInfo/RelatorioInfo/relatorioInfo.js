@@ -100,7 +100,7 @@ export default function RelatorioInfo() {
     // Verifica se o Patrimônio Líquido atende ao requisito mínimo
     const atendeRequisitos = ((indice.patrimonioLiquido)) >= requisitoMinimo;
     // Calcula a porcentagem em relação ao valor estimado
-    const porcentagemPatrimonio = ((indice.patrimonioLiquido) / requisitoMinimo) * (100);
+    const porcentagemPatrimonio = ((indice.patrimonioLiquido) / empresa.valorEstimadoContrato) * (100);
 
     //***COMPLEMENTACAO***//
     // Calcula CCL ou CG = (ativoCirculante - passivoCirculante)
@@ -118,7 +118,7 @@ export default function RelatorioInfo() {
     //umDozeAvos é maior que o patrimonio liquido
     const ultraPassaValor = umDozeAvos > ((indice.patrimonioLiquido));
     //valor de porcentage receita bruta menos compromissos assumidos dividido por comp. assumidos.
-    const divergenciaPercentual = ((compromisso.receitaBruta - complementacao.comprAssumidos) / (complementacao.comprAssumidos)) * (100)
+    const divergenciaPercentual = ((compromisso.receitaBruta - complementacao.comprAssumidos) / (compromisso.receitaBruta)) * (100)
 
     //TRATAMENTO VALORES NÚMERICOS PARA PONTO E VÍRGULA 
     const formatarNumero = (numero) => {
