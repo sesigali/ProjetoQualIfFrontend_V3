@@ -37,7 +37,7 @@ export default function PatrimonioLiqInfo({
       const atendeRequisitos = patrimonioLiquidoNum >= requisitoMinimo;
 
       // Calcula a porcentagem em relação ao valor estimado
-      const porcentagemPatrimonio = (patrimonioLiquidoNum / requisitoMinimo) * 100;
+      const porcentagemPatrimonio = (patrimonioLiquidoNum / valorEstimadoNum) * 100;
 
       // Define o resultado no índice
       setIndiceResult({

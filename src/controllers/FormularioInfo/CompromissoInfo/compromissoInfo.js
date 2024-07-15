@@ -53,7 +53,7 @@ export default function CompromissosAssumidosInfo({
       return;
     }
 
-    const divergenciaValue = ((receitaBruta - compromissosAssumidos) / compromissosAssumidos) * 100;
+    const divergenciaValue = ((receitaBruta - compromissosAssumidos) / receitaBruta) * 100;
 
     setDivergencia(divergenciaValue);
 
@@ -93,8 +93,8 @@ export default function CompromissosAssumidosInfo({
   return (
     <div>
       <h1 className="title-info">Compromissos Assumidos</h1>
-      <p>Caso a diferença entre a receita bruta discriminada na Demonstração do Resultado do <br />
-        Exercício (DRE) e a declaração apresentada seja maior que 10% (dez por cento) positivo <br />
+      <p>Caso a diferença entre a Receita Bruta discriminada na Demonstração do Resultado do 
+        Exercício (DRE) e a Declaração de Compromissos Assumidos apresentada seja maior que 10% (dez por cento) positivo
         ou negativo em relação à receita bruta, o licitante deverá apresentar justificativas.</p>
 
       <form onSubmit={handleSubmit}>
