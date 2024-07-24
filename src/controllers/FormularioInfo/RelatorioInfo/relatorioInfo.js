@@ -207,7 +207,7 @@ export default function RelatorioInfo() {
                     <hr className="linhahr" />
 
                     <div>
-                        <p className="subtituloRelatorio">Patrimônio Líquido
+                        <p className="subtituloRelatorio">Patrimônio Líquido (PL)
                         </p>
                         <p>Comprovação de patrimônio líquido de 10% (dez por cento) do valor total estimado da contratação ou do item pertinente.</p>
                         <ul className="listaRelatorio">
@@ -246,7 +246,7 @@ export default function RelatorioInfo() {
                             <li className="descricao">Compromissos Assumidos: <span className="span">{formatarNumero(complementacao.comprAssumidos)}</span></li>
                             <li className="descricao">1/12 dos Compromissos Assumidos: <span className="span">{formatarNumero(umDozeAvos)}</span></li>
                             <li className="descricao">Patrimonial Líquido: <span className="span">{formatarNumero(indice.patrimonioLiquido)}</span></li>
-                            <li className="descricao">1/12 do valor dos compromissos assumidos ultrapassa o Patrimonial Líquido: <span className={ultraPassaValor ? "vermelho" : "azul"}>{ultraPassaValor ? "Sim" : "Não"}</span></li>
+                            <li className="descricao">1/12 do valor dos compromissos assumidos ultrapassa o Patrimonial Líquido: <span className={ultraPassaValor ? "vermelho" : "azul"}>{ultraPassaValor ? "Sim, ultrapassa o PL " : "Não, ultrapassa o PL"}</span></li>
                         </ul>
                     </div>
 
@@ -260,7 +260,8 @@ export default function RelatorioInfo() {
                             <li className="descricao">Receita Bruta: <span className="span">{formatarNumero(compromisso.receitaBruta)}</span></li>
                             <li className="descricao">Compromissos Assumidos: <span className="span">{formatarNumero(complementacao.comprAssumidos)}</span></li>
                             <li className="descricao">Divergência Percentual: <span className="span">{divergenciaPercentual.toFixed(2)}%</span></li>
-                            <li className="descricao">Empresa encaminhou justificativa para Receita Bruta superior ou inferior a 10%: <span className="span">{compromisso.justificativa}</span></li>
+                            {/* VERIFICAR */}
+                            <li className="descricao">Empresa encaminhou justificativa para Receita Bruta superior ou inferior a 10%: <span className={compromisso.justificativa === "Sim" ? "azul" : "vermelho"}>{compromisso.justificativa}</span></li>
                         </ul>
                     </div>
 

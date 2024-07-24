@@ -93,9 +93,7 @@ export default function CompromissosAssumidosInfo({
   return (
     <div>
       <h1 className="title-info">Compromissos Assumidos</h1>
-      <p>Caso a diferença entre a Receita Bruta discriminada na Demonstração do Resultado do 
-        Exercício (DRE) e a Declaração de Compromissos Assumidos apresentada seja maior que 10% (dez por cento) positivo
-        ou negativo em relação à receita bruta, o licitante deverá apresentar justificativas.</p>
+      <p>Caso a diferença entre a Receita Bruta discriminada na Demonstração do Resultado do Exercício (DRE) e a Declaração de Compromissos Assumidos apresentada seja maior que 10% (dez por cento) positivo ou negativo em relação à receita bruta, o licitante deverá apresentar justificativas.</p>
 
       <form onSubmit={handleSubmit}>
         <div className="compromissoInfo">
@@ -123,7 +121,7 @@ export default function CompromissosAssumidosInfo({
 
         {temJustificativa && (
           <div>
-            <h3 className="sub-title">Empresa encaminhou justificativa para a diferença entre a Receita Bruta e a Declação de Compromissos Assumidos superior ou inferior a 10%?</h3>
+            <h3 className="sub-title">Empresa encaminhou justificativa para a diferença entre a Receita Bruta e a Declaração de Compromissos Assumidos superior ou inferior a 10%?</h3>
             <label className="label-certidaoInfo">
               <input
                 type="radio"

@@ -50,7 +50,7 @@ export default function PatrimonioLiqInfo({
 
   return (
     <div>
-      <h1 className="title-info">Patrimônio Líquido</h1>
+      <h1 className="title-info">Patrimônio Líquido (PL)</h1>
       <p>Comprovação de patrimônio líquido de 10% (dez por cento) do valor total estimado da <br/>contratação ou do item pertinente.</p>
       <div className='patrimonioInfo'>
         <label>Valor Estimado do Contrato: R$ </label>

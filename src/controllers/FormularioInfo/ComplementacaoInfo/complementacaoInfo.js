@@ -113,9 +113,7 @@ export default function ComplementacaoInfo({
       <hr />
       <h1 className="title-info">Complementação da Qualificação Econômico-Financeira</h1>
       <form onSubmit={handleCadastroCompromissos}>
-        <p>Comprovação de possuir Capital Circulante Líquido (CCL) ou Capital de Giro <br />
-          (Ativo Circulante - Passivo Circulante) de, no mínimo, 16,66% (dezesseis inteiros <br />
-          e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
+        <p>Comprovação de possuir Capital Circulante Líquido (CCL) ou Capital de Giro (Ativo Circulante - Passivo Circulante) de, no mínimo, 16,66% (dezesseis inteiros e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
 
         <div className="complInfo">
           <label>Capital Circulante Líquido (CCL) ou Capital de Giro: R$ {isNaN(ccl) ? "Indefinido" : ccl.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</label>
@@ -136,8 +134,7 @@ export default function ComplementacaoInfo({
             <hr />
 
             <div>
-              <p>A Declaração de Compromissos Assumidos deve informar que 1/12 (um doze avos)<br>
-              </br> dos contratos firmados pela licitante não é superior ao Patrimônio Líquido da licitante </p>
+              <p>A Declaração de Compromissos Assumidos deve informar que 1/12 (um doze avos) dos contratos firmados pela licitante não é superior ao Patrimônio Líquido da licitante </p>
             </div>
 
             <div className="complInfo">
@@ -163,7 +160,7 @@ export default function ComplementacaoInfo({
             </p>
 
             <p>1/12 do valor dos compromissos assumidos ultrapassa o Patrimonial Líquido: <span className={indiceResult.ultrapassaValor ? "texto-vermelho" : "texto-azul"}>
-              {indiceResult.ultrapassaValor ? "Sim" : "Não"}</span>
+              {indiceResult.ultrapassaValor ? "Sim, ultrapassa o PL " : "Não, ultrapassa o PL"}</span>
             </p>
 
 
