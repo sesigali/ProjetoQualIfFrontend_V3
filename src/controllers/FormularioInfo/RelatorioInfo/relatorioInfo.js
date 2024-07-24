@@ -177,7 +177,7 @@ export default function RelatorioInfo() {
                         <p className="subtituloRelatorio">Balanço Patrimonial
                         </p>
                         <ul className="listaRelatorio">
-                            <li className="descricao">Balanço está em conformidade com a lei: <span className="span">{balanco.conformidadeLei}</span></li>
+                            <li className="descricao">Balanço está em conformidade com a lei: <span className={balanco.conformidadeLei === "Sim" ? "azul" : "vermelho"}>{balanco.conformidadeLei}</span></li>
                         </ul>
                     </div>
 
