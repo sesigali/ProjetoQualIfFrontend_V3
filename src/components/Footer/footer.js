@@ -6,7 +6,7 @@ export default function Footer() {
     return (
         <footer>
             <div className=''>
-                <h1>Instituto Federal de São Paulo / Campus São Carlos</h1>
+                <h1>QualiF - Sistema de Qualificação Econômica-Financeira</h1>
             </div>
 
         </footer>
