@@ -31,7 +31,8 @@
     .content {
         height: 100vh;
         flex-direction: column;
-       
+        overflow-y: auto;
+        
     }
 
     .text {
