@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../RelatorioInfo/relatorioInfoStyle.css';
-import Image from '../RelatorioInfo/img/Imagem.png'
+import Image from '../RelatorioInfo/img/Imagem3.png'
 import axios from 'axios';
 import host from "../../../components/Host/host";
 import { useParams } from "react-router-dom";
