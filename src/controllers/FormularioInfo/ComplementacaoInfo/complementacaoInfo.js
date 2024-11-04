@@ -159,9 +159,13 @@ export default function ComplementacaoInfo({
             <p>Patrimônio Líquido: R$ {indiceResult.patrimonioLiquidoNum.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </p>
 
-            <p>1/12 do valor dos compromissos assumidos ultrapassa o Patrimonial Líquido: <span className={indiceResult.ultrapassaValor ? "texto-vermelho" : "texto-azul"}>
-              {indiceResult.ultrapassaValor ? "Sim, ultrapassa o PL " : "Não, ultrapassa o PL"}</span>
+            <p>1/12 do valor dos Compromissos Assumidos é inferior ao Patrimônio Líquido: <span className={indiceResult.ultrapassaValor ? "texto-vermelho" : "texto-azul"}>
+              {indiceResult.ultrapassaValor ? "Não" : "Sim"}</span>
             </p>
+
+            {/* <p>1/12 do valor dos compromissos assumidos ultrapassa o Patrimonial Líquido: <span className={indiceResult.ultrapassaValor ? "texto-vermelho" : "texto-azul"}>
+              {indiceResult.ultrapassaValor ? "Sim, ultrapassa o PL " : "Não, ultrapassa o PL"}</span>
+            </p> */}
 
 
           </div>

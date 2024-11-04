@@ -95,7 +95,7 @@ export default function IndiceInfo({
       <h1 className="title-info">Índices Financeiros</h1>
       <form onSubmit={handleSubmit}>
         <div className="indiceInfo">
-          <label>Ativo Circulante:</label>
+          <label>Ativo Circulante: R$ </label>
           <NumericFormat
             name="ativoCirculante"
             value={ativoCirculante}
@@ -108,7 +108,7 @@ export default function IndiceInfo({
         </div>
 
         <div className="indiceInfo">
-          <label>Ativo Realizável a Longo Prazo:</label>
+          <label>Ativo Realizável a Longo Prazo: R$ </label>
           <NumericFormat
             name="ativoReaLongoPrazo"
             value={ativoReaLongoPrazo}
@@ -121,7 +121,7 @@ export default function IndiceInfo({
 
         </div>
         <div className="indiceInfo">
-          <label>Ativo Total:</label>
+          <label>Ativo Total: R$ </label>
           <NumericFormat
             name="ativoTotal"
             value={ativoTotal}
@@ -134,7 +134,7 @@ export default function IndiceInfo({
 
         </div>
         <div className="indiceInfo">
-          <label>Passivo Circulante:</label>
+          <label>Passivo Circulante: R$ </label>
           <NumericFormat
             name="passivoCirculante"
             value={passivoCirculante}
@@ -147,7 +147,7 @@ export default function IndiceInfo({
 
         </div>
         <div className="indiceInfo">
-          <label>Passivo Não Circulante:</label>
+          <label>Passivo Não Circulante: R$ </label>
           <NumericFormat
             name="passivoNaoCirculante"
             value={passivoNaoCirculante}
@@ -160,7 +160,7 @@ export default function IndiceInfo({
 
         </div>
         <div>
-          <label className='patrimonioInfo'>Patrimônio Líquido:</label>
+          <label className='patrimonioInfo'>Patrimônio Líquido: R$</label>
           <NumericFormat
             name="patrimonioLiquido"
             value={patrimonioLiquido}
