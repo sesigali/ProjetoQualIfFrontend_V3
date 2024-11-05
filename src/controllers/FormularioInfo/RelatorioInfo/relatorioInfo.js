@@ -177,7 +177,7 @@ export default function RelatorioInfo() {
                         <p className="subtituloRelatorio">Balanço Patrimonial
                         </p>
                         <ul className="listaRelatorio">
-                            <li className="descricao">Balanço está em conformidade com a lei: <span className={balanco.conformidadeLei === "Sim" ? "azul" : "vermelho"}>{balanco.conformidadeLei}</span></li>
+                            <li className="descricao">Balanço está em conformidade com a Lei n.º 11.638, de 28 de dezembro de 2007: <span className={balanco.conformidadeLei === "Sim" ? "azul" : "vermelho"}>{balanco.conformidadeLei}</span></li>
                         </ul>
                     </div>
 
@@ -262,7 +262,7 @@ export default function RelatorioInfo() {
                             <li className="descricao">Compromissos Assumidos: R$ <span className="span">{formatarNumero(complementacao.comprAssumidos)}</span></li>
                             <li className="descricao">Divergência Percentual: <span className="span">{divergenciaPercentual.toFixed(2)}%</span></li>
                             {/* VERIFICAR */}
-                            <li className="descricao">Empresa encaminhou justificativa para Receita Bruta superior ou inferior a 10%: <span className={compromisso.justificativa === "Sim" ? "azul" : "vermelho"}>{compromisso.justificativa}</span></li>
+                            <li className="descricao">Empresa encaminhou justificativa para diferença superior ou inferior a 10%: <span className={compromisso.justificativa === "Sim" ? "azul" : "vermelho"}>{compromisso.justificativa}</span></li>
                         </ul>
                     </div>
 

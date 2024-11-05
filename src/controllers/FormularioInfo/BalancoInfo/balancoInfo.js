@@ -72,7 +72,7 @@ export default function BalancoInfo({
             <form onSubmit={handleSubmit}>
                 <div className="balancoInfo">
                     {/* Validar balanço */}
-                    <h3 className="sub-title">Balanço está em conformidade com a lei?</h3>
+                    <h3 className="sub-title">Balanço está em conformidade com a Lei n.º 11.638, de 28 de dezembro de 2007?</h3>
                     <label className="label-balancoInfo">
                         <input type="radio" value="Sim"
                             checked={formData.balancoConfLei === 'Sim'}
