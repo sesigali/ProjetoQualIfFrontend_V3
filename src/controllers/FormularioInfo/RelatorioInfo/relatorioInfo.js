@@ -230,8 +230,8 @@ export default function RelatorioInfo() {
                         </p>
                         <p>Comprovação deve possuir Capital Circulante Líquido (CCL) ou Capital de Giro (Ativo Circulante - Passivo Circulante) de, no  mínimo, 16,66% (dezesseis inteiros e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
                         <ul className="listaRelatorio">
-                            <li className="descricao">Capital Circulante Líquido (CCL) ou Capital de Giro: R$ <span className="span">{formatarNumero(capitalClCg)}</span></li>
                             <li className="descricao">Valor Estimado do Contrato: R$ <span className="span">{formatarNumero(empresa.valorEstimadoContrato)}</span></li>
+                            <li className="descricao">Capital Circulante Líquido (CCL) ou Capital de Giro: R$ <span className="span">{formatarNumero(capitalClCg)}</span></li>
                         </ul>
 
                         <h2 className="h2">Resultados</h2>
