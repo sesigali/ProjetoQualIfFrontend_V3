@@ -217,7 +217,7 @@ export default function RelatorioInfo() {
 
                         <h2 className="h2">Resultados</h2>
                         <ul className="listaRelatorio">
-                            <li className="descricao">Requisito Mínimo de 10% do PL: R$ <span className="span">{formatarNumero(requisitoMinimo)}</span></li>
+                            <li className="descricao">Requisito mínimo PL 10% do valor estimado: R$ <span className="span">{formatarNumero(requisitoMinimo)}</span></li>
                             <li className="descricao">Atende ao Requisito: <span className={atendeRequisitos ? "azul" : "vermelho"}>{atendeRequisitos ? "Sim" : "Não"}</span></li>
                             <li className="descricao">Taxa da Empresa: <span className="span">{porcentagemPatrimonio.toFixed(2)}% </span></li>
                         </ul>
@@ -228,7 +228,7 @@ export default function RelatorioInfo() {
                     <div>
                         <p className="subtituloRelatorio">Complementação da Qualificação Econômico-Financeira
                         </p>
-                        <p>Comprovação de possuir Capital Circulante Líquido (CCL) ou Capital de Giro (Ativo Circulante - Passivo Circulante) de, no  mínimo, 16,66% (dezesseis inteiros e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
+                        <p>Comprovação deve possuir Capital Circulante Líquido (CCL) ou Capital de Giro (Ativo Circulante - Passivo Circulante) de, no  mínimo, 16,66% (dezesseis inteiros e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
                         <ul className="listaRelatorio">
                             <li className="descricao">Capital Circulante Líquido (CCL) ou Capital de Giro: R$ <span className="span">{formatarNumero(capitalClCg)}</span></li>
                             <li className="descricao">Valor Estimado do Contrato: R$ <span className="span">{formatarNumero(empresa.valorEstimadoContrato)}</span></li>
@@ -237,15 +237,15 @@ export default function RelatorioInfo() {
                         <h2 className="h2">Resultados</h2>
                         <ul className="listaRelatorio">
                             <li className="descricao">Requisito mínimo CCL 16,66% do valor estimado: R$ <span className="span">{formatarNumero(requisitoMinimoCcl)}</span></li>
-                            <li className="descricao">Total de Capital de Giro estimado sobre o valor da contratação: R$ <span className="span">{porcentagemTotalCg.toFixed(2)}%</span></li>
                             <li className="descricao">Atende aos Requisitos: <span className={atendeRequisitosCcl ? "azul" : "vermelho"}>{atendeRequisitosCcl ? "Sim" : "Não"}</span></li>
+                            <li className="descricao">Total de Capital de Giro estimado sobre o valor da contratação: <span className="span">{porcentagemTotalCg.toFixed(2)}%</span></li>
                         </ul>
 
                         <p>A Declaração de Compromissos Assumidos deve informar que 1/12 (um doze avos) dos contratos firmados pela licitante não é superior ao Patrimônio Líquido da licitante.</p>
                         <ul className="listaRelatorio">
                             <li className="descricao">Compromissos Assumidos: R$ <span className="span">{formatarNumero(complementacao.comprAssumidos)}</span></li>
                             <li className="descricao">1/12 dos Compromissos Assumidos: R$ <span className="span">{formatarNumero(umDozeAvos)}</span></li>
-                            <li className="descricao">Patrimonial Líquido: R$ <span className="span">{formatarNumero(indice.patrimonioLiquido)}</span></li>
+                            <li className="descricao">Patrimônio Líquido: R$ <span className="span">{formatarNumero(indice.patrimonioLiquido)}</span></li>
                             <li className="descricao">1/12 do valor dos Compromissos Assumidos é inferior ao Patrimônio Líquido: <span className={ultraPassaValor ? "vermelho" : "azul"}>{ultraPassaValor ? "Não" : "Sim"}</span></li>
                         </ul>
                     </div>
