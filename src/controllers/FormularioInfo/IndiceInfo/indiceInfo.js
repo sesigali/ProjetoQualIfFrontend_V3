@@ -14,12 +14,12 @@ export default function IndiceInfo({
   balancoConfLeiBalanco,
   anexoBalanco
 }) {
-  const [ativoCirculante, setAtivoCirculante] = useState("0");
-  const [ativoReaLongoPrazo, setAtivoRealizavelLongoPrazo] = useState("0");
-  const [ativoTotal, setAtivoTotal] = useState("0");
-  const [passivoCirculante, setPassivoCirculante] = useState("0");
-  const [passivoNaoCirculante, setPassivoNaoCirculante] = useState("0");
-  const [patrimonioLiquido, setPatrimonioLiquido] = useState("0");
+  const [ativoCirculante, setAtivoCirculante] = useState("");
+  const [ativoReaLongoPrazo, setAtivoRealizavelLongoPrazo] = useState("");
+  const [ativoTotal, setAtivoTotal] = useState("");
+  const [passivoCirculante, setPassivoCirculante] = useState("");
+  const [passivoNaoCirculante, setPassivoNaoCirculante] = useState("");
+  const [patrimonioLiquido, setPatrimonioLiquido] = useState("");
   const [liquidezGeral, setLiquidezGeral] = useState(null);
   const [solvenciaGeral, setSolvenciaGeral] = useState(null);
   const [liquidezCorrente, setLiquidezCorrente] = useState(null);
