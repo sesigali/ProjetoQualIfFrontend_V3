@@ -113,7 +113,7 @@ export default function ComplementacaoInfo({
       <hr />
       <h1 className="title-info">Complementação da Qualificação Econômico-Financeira</h1>
       <form onSubmit={handleCadastroCompromissos}>
-        <p>Comprovação de possuir Capital Circulante Líquido (CCL) ou Capital de Giro (Ativo Circulante - Passivo Circulante) de, no mínimo, 16,66% (dezesseis inteiros e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
+        <p>Comprovação deve possuir Capital Circulante Líquido (CCL) ou Capital de Giro (Ativo Circulante - Passivo Circulante) de, no mínimo, 16,66% (dezesseis inteiros e sessenta e seis centésimos por cento) do valor estimado do contrato.</p>
 
         <div className="complInfo">
           <label>Capital Circulante Líquido (CCL) ou Capital de Giro: R$ {isNaN(ccl) ? "Indefinido" : ccl.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</label>
