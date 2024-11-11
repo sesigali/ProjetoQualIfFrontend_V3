@@ -127,10 +127,9 @@ export default function ComplementacaoInfo({
             <p><h4>Resultados</h4></p>
             <p>Requisito mínimo CCL 16,66% do valor estimado: R$ {indiceResult.requisitoMinimo.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
 
-
-            <p>Total de Capital de Giro (CCL) estimado sobre o valor da contratação: {isNaN(txCclValorEstimado) ? "Indefinido" : txCclValorEstimado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%</p>
-
             <p>Atende aos Requisitos: <span className={indiceResult.atendeRequisitos ? "texto-azul" : "texto-vermelho"}>{indiceResult.atendeRequisitos ? "Sim" : "Não"}</span></p>
+
+            <p>Total de Capital de Giro (CCL) estimado sobre o valor da contratação: {isNaN(txCclValorEstimado) ? "Indefinido" : txCclValorEstimado.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}%</p>            
             <hr />
 
             <div>

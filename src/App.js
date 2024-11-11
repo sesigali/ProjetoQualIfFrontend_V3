@@ -7,19 +7,19 @@ import LoginUser from "./controllers/Login/loginUser"
 import RegisterUser from "./controllers/Login/registerUser";
 import Navbar from "./components/Navbar/navbar/navbar";
 import NavbarLogin from "./components/Navbar/navbar-login/navbar-login";
-import UploadListaCredor from './components/UploadListaCredor/UploadListaCredor'; // Certifique-se de que o caminho está correto
+//import UploadListaCredor from './components/UploadListaCredor/UploadListaCredor'; // Certifique-se de que o caminho está correto
 
 function App() {
 
   return (
     <BrowserRouter>
         
-      {/*<!-- Teste de lista de credor -->*/}
+      {/* <!-- Teste de lista de credor -->
         
       <div className="App">
         <h1>Upload de Lista de Credores</h1>
         <UploadListaCredor />
-      </div>
+      </div> */}
 
       <Routes>
 
@@ -31,14 +31,14 @@ function App() {
         <Route exact path="/login" element={<LoginUser/>}/>
         <Route exact path="/register" element={<RegisterUser/>}/>
 
-        {/*<!-- Teste de lista de credor -->*/}
+        {/* <!-- Teste de lista de credor -->
         
         <Route exact path="/upload" element={        
           <div className="App">
             <h1>Upload de Lista de Credores</h1>
             <UploadListaCredor />
           </div>
-        } />
+        } /> */}
         
       </Routes>
     </BrowserRouter>
