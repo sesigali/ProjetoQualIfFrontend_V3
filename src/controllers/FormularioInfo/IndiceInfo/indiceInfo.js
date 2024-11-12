@@ -14,12 +14,12 @@ export default function IndiceInfo({
   balancoConfLeiBalanco,
   anexoBalanco
 }) {
-  const [ativoCirculante, setAtivoCirculante] = useState("");
-  const [ativoReaLongoPrazo, setAtivoRealizavelLongoPrazo] = useState("");
-  const [ativoTotal, setAtivoTotal] = useState("");
-  const [passivoCirculante, setPassivoCirculante] = useState("");
-  const [passivoNaoCirculante, setPassivoNaoCirculante] = useState("");
-  const [patrimonioLiquido, setPatrimonioLiquido] = useState("");
+  const [ativoCirculante, setAtivoCirculante] = useState(0);
+  const [ativoReaLongoPrazo, setAtivoRealizavelLongoPrazo] = useState(0);
+  const [ativoTotal, setAtivoTotal] = useState(0);
+  const [passivoCirculante, setPassivoCirculante] = useState(0);
+  const [passivoNaoCirculante, setPassivoNaoCirculante] = useState(0);
+  const [patrimonioLiquido, setPatrimonioLiquido] = useState(0);
   const [liquidezGeral, setLiquidezGeral] = useState(null);
   const [solvenciaGeral, setSolvenciaGeral] = useState(null);
   const [liquidezCorrente, setLiquidezCorrente] = useState(null);
@@ -42,10 +42,10 @@ export default function IndiceInfo({
     const passivoNaoCirculanteValue = passivoNaoCirculante;
 
     const liquidezGeralResult =
-      (ativoCirculanteValue + ativoRealizavelLongoPrazoValue) /
-      (passivoCirculanteValue + passivoNaoCirculanteValue);
-    const solvenciaGeralResult = ativoTotalValue / (passivoCirculanteValue + passivoNaoCirculanteValue);
-    const liquidezCorrenteResult = ativoCirculanteValue / passivoCirculanteValue;
+      ((ativoCirculanteValue) + (ativoRealizavelLongoPrazoValue)) /
+      ((passivoCirculanteValue) + (passivoNaoCirculanteValue));
+    const solvenciaGeralResult = (ativoTotalValue) / ((passivoCirculanteValue) + (passivoNaoCirculanteValue));
+    const liquidezCorrenteResult = (ativoCirculanteValue) / (passivoCirculanteValue);
 
     if (!isNaN(liquidezGeralResult) && isFinite(liquidezGeralResult)) {
       setLiquidezGeral(liquidezGeralResult.toFixed(2));
@@ -104,6 +104,7 @@ export default function IndiceInfo({
             onValueChange={(values) => handleInputChange(values, "ativoCirculante")}
             allowNegative={false}
             decimalScale={2}
+            fixedDecimalScale={true}
           />
         </div>
 
@@ -117,6 +118,7 @@ export default function IndiceInfo({
             onValueChange={(values) => handleInputChange(values, "ativoReaLongoPrazo")}
             allowNegative={false}
             decimalScale={2}
+            fixedDecimalScale={true}
           />
 
         </div>
@@ -130,6 +132,7 @@ export default function IndiceInfo({
             onValueChange={(values) => handleInputChange(values, "ativoTotal")}
             allowNegative={false}
             decimalScale={2}
+            fixedDecimalScale={true}
           />
 
         </div>
@@ -143,6 +146,7 @@ export default function IndiceInfo({
             onValueChange={(values) => handleInputChange(values, "passivoCirculante")}
             allowNegative={false}
             decimalScale={2}
+            fixedDecimalScale={true}
           />
 
         </div>
@@ -156,6 +160,7 @@ export default function IndiceInfo({
             onValueChange={(values) => handleInputChange(values, "passivoNaoCirculante")}
             allowNegative={false}
             decimalScale={2}
+            fixedDecimalScale={true}
           />
 
         </div>
@@ -169,6 +174,7 @@ export default function IndiceInfo({
             onValueChange={(values) => setPatrimonioLiquido(values.floatValue)}
             allowNegative={false}
             decimalScale={2}
+            fixedDecimalScale={true}
           />
         </div>
 

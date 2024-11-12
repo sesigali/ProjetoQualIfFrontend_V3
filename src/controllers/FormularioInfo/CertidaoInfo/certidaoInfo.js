@@ -75,23 +75,23 @@ export default function CertidaoInfo({
                     <input
                         type="radio"
                         name="certidao"
-                        value="Positiva"
-                        checked={formData.certidao === 'Positiva'}
+                        value="Positiva/Consta"
+                        checked={formData.certidao === 'Positiva/Consta'}
                         onChange={handleInputChange}
-                    />Positiva
+                    />Positiva/Consta 
                 </label>
 
                 <label className="label-certidaoInfo">
                     <input
                         type="radio"
                         name="certidao"
-                        value="Negativa"
-                        checked={formData.certidao === 'Negativa'}
+                        value="Negativa/Nada Consta"
+                        checked={formData.certidao === 'Negativa/Nada Consta'}
                         onChange={handleInputChange}
-                    />Negativa
+                    />Negativa/Nada Consta
                 </label>
 
-                {formData.certidao === 'Positiva' && (
+                {formData.certidao === 'Positiva/Consta' && (
                     <div>
                         {/* Doc de recuperação judicial */}
                         <h3 className="sub-title">Empresa encaminhou documento de acolhimento  judicial?</h3>
@@ -119,7 +119,7 @@ export default function CertidaoInfo({
                     
                 )}
 
-                {(formData.certidao === 'Negativa' || formData.docRecuperacao === 'Sim' || formData.docRecuperacao === 'Não') && (
+                {(formData.certidao === 'Negativa/Nada Consta' || formData.docRecuperacao === 'Sim' || formData.docRecuperacao === 'Não') && (
                     <div>
                         {/* Anexar Documento de Recuperação Judicial */}
                         <h3 className="sub-title">Anexar Certidão Negativa:</h3>

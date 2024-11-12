@@ -28,7 +28,7 @@ export default function ComplementacaoInfo({
   const [umDozeAvos, setUmDozeAvos] = useState("");
   const [txCclValorEstimado, settxCclValorEstimado] = useState("");
   const [indiceResult, setIndiceResult] = useState("");
-  const [compromissosAssumidos, setCompromissosAssumidos] = useState("0");
+  const [compromissosAssumidos, setCompromissosAssumidos] = useState(0);
   const [erro, setErro] = useState(null); // eslint-disable-line no-unused-vars
   const [ultimoCadastro, setUltimoCadastro] = useState({ valorEstimadoContrato: '' });
 
@@ -133,7 +133,7 @@ export default function ComplementacaoInfo({
             <hr />
 
             <div>
-              <p>A Declaração de Compromissos Assumidos deve informar que 1/12 (um doze avos) dos contratos firmados pela licitante não é superior ao Patrimônio Líquido da licitante </p>
+              <p>A Declaração de Compromissos Assumidos deve informar que 1/12 (um doze avos) dos contratos firmados pela licitante não é superior ao Patrimônio Líquido da licitante. </p>
             </div>
 
             <div className="complInfo">
@@ -146,6 +146,7 @@ export default function ComplementacaoInfo({
                 decimalScale={2}
                 decimalSeparator=','
                 thousandSeparator='.'
+                fixedDecimalScale={true}
               />
             </div>
             

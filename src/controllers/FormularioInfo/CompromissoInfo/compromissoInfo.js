@@ -22,7 +22,7 @@ export default function CompromissosAssumidosInfo({
 
   compromissosAssumidos,
 }) {
-  const [receitaBruta, setReceitaBruta] = useState("0");
+  const [receitaBruta, setReceitaBruta] = useState(0);
   const [declaracao, setDeclaracao] = useState(null);
   const [dre, setDre] = useState(null);
   const [divergencia, setDivergencia] = useState(0);
@@ -108,6 +108,7 @@ export default function CompromissosAssumidosInfo({
             decimalScale={2}
             decimalSeparator=','
             thousandSeparator='.'
+            fixedDecimalScale={true}
           />
         </div>
 

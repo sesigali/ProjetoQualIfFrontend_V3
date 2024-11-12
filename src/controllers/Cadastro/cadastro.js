@@ -131,6 +131,7 @@ export default function Cadastro() {
                                 decimalSeparator=','
                                 thousandSeparator='.'
                                 prefix='R$ '
+                                fixedDecimalScale={true}
                             />
   
                             <div className='button-container'>
