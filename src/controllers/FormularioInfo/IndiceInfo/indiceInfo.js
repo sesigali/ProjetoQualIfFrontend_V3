@@ -35,37 +35,6 @@ export default function IndiceInfo({
     if (name === "passivoCirculante") setPassivoCirculante(floatValue);
     if (name === "passivoNaoCirculante") setPassivoNaoCirculante(floatValue);
 
-    // const ativoCirculanteValue = ativoCirculante;
-    // const ativoRealizavelLongoPrazoValue = ativoReaLongoPrazo;
-    // const ativoTotalValue = ativoTotal;
-    // const passivoCirculanteValue = passivoCirculante;
-    // const passivoNaoCirculanteValue = passivoNaoCirculante;
-
-    
-    // const liquidezGeralResult =
-    //   ((ativoCirculanteValue + ativoRealizavelLongoPrazoValue) /
-    //   (passivoCirculanteValue + passivoNaoCirculanteValue));
-    // const solvenciaGeralResult = ((ativoTotalValue) / (passivoCirculanteValue + passivoNaoCirculanteValue));
-    // const liquidezCorrenteResult = ((ativoCirculanteValue) / (passivoCirculanteValue));
-
-    // if (!isNaN(liquidezGeralResult) && isFinite(liquidezGeralResult)) {
-    //   setLiquidezGeral(liquidezGeralResult.toFixed(2));
-    // } else {
-    //   setLiquidezGeral("Indefinido");
-    // }
-
-    // if (!isNaN(solvenciaGeralResult) && isFinite(solvenciaGeralResult)) {
-    //   setSolvenciaGeral(solvenciaGeralResult.toFixed(2));
-    // } else {
-    //   setSolvenciaGeral("Indefinido");
-    // }
-
-    // if (!isNaN(liquidezCorrenteResult) && isFinite(liquidezCorrenteResult)) {
-    //   setLiquidezCorrente(liquidezCorrenteResult.toFixed(2));
-    // } else {
-    //   setLiquidezCorrente("Indefinido");
-    // }
-
   };
 
   useEffect(() => {
