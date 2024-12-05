@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import host from "../../../components/Host/host";
 import PatrimonioLiqInfo from "../PatrimonioLiqInfo/patrimonioLiqInfo";
@@ -35,38 +35,65 @@ export default function IndiceInfo({
     if (name === "passivoCirculante") setPassivoCirculante(floatValue);
     if (name === "passivoNaoCirculante") setPassivoNaoCirculante(floatValue);
 
-    const ativoCirculanteValue = ativoCirculante;
-    const ativoRealizavelLongoPrazoValue = ativoReaLongoPrazo;
-    const ativoTotalValue = ativoTotal;
-    const passivoCirculanteValue = passivoCirculante;
-    const passivoNaoCirculanteValue = passivoNaoCirculante;
+    // const ativoCirculanteValue = ativoCirculante;
+    // const ativoRealizavelLongoPrazoValue = ativoReaLongoPrazo;
+    // const ativoTotalValue = ativoTotal;
+    // const passivoCirculanteValue = passivoCirculante;
+    // const passivoNaoCirculanteValue = passivoNaoCirculante;
 
-    const liquidezGeralResult =
-      ((ativoCirculanteValue) + (ativoRealizavelLongoPrazoValue)) /
-      ((passivoCirculanteValue) + (passivoNaoCirculanteValue));
-    const solvenciaGeralResult = (ativoTotalValue) / ((passivoCirculanteValue) + (passivoNaoCirculanteValue));
-    const liquidezCorrenteResult = (ativoCirculanteValue) / (passivoCirculanteValue);
+    
+    // const liquidezGeralResult =
+    //   ((ativoCirculanteValue + ativoRealizavelLongoPrazoValue) /
+    //   (passivoCirculanteValue + passivoNaoCirculanteValue));
+    // const solvenciaGeralResult = ((ativoTotalValue) / (passivoCirculanteValue + passivoNaoCirculanteValue));
+    // const liquidezCorrenteResult = ((ativoCirculanteValue) / (passivoCirculanteValue));
 
-    if (!isNaN(liquidezGeralResult) && isFinite(liquidezGeralResult)) {
-      setLiquidezGeral(liquidezGeralResult.toFixed(2));
-    } else {
-      setLiquidezGeral("Indefinido");
-    }
+    // if (!isNaN(liquidezGeralResult) && isFinite(liquidezGeralResult)) {
+    //   setLiquidezGeral(liquidezGeralResult.toFixed(2));
+    // } else {
+    //   setLiquidezGeral("Indefinido");
+    // }
 
-    if (!isNaN(solvenciaGeralResult) && isFinite(solvenciaGeralResult)) {
-      setSolvenciaGeral(solvenciaGeralResult.toFixed(2));
-    } else {
-      setSolvenciaGeral("Indefinido");
-    }
+    // if (!isNaN(solvenciaGeralResult) && isFinite(solvenciaGeralResult)) {
+    //   setSolvenciaGeral(solvenciaGeralResult.toFixed(2));
+    // } else {
+    //   setSolvenciaGeral("Indefinido");
+    // }
 
-    if (!isNaN(liquidezCorrenteResult) && isFinite(liquidezCorrenteResult)) {
-      setLiquidezCorrente(liquidezCorrenteResult.toFixed(2));
-    } else {
-      setLiquidezCorrente("Indefinido");
-    }
+    // if (!isNaN(liquidezCorrenteResult) && isFinite(liquidezCorrenteResult)) {
+    //   setLiquidezCorrente(liquidezCorrenteResult.toFixed(2));
+    // } else {
+    //   setLiquidezCorrente("Indefinido");
+    // }
 
   };
 
+  useEffect(() => {
+    const calcularIndices = () => {
+      const liquidezGeral = 
+        (ativoCirculante + ativoReaLongoPrazo) / 
+        (passivoCirculante + passivoNaoCirculante || 1);
+      const solvenciaGeral = 
+        ativoTotal / 
+        (passivoCirculante + passivoNaoCirculante || 1);
+      const liquidezCorrente = 
+        ativoCirculante / 
+        (passivoCirculante || 1);
+  
+      setLiquidezGeral(liquidezGeral);
+      setSolvenciaGeral(solvenciaGeral);
+      setLiquidezCorrente(liquidezCorrente);
+    };
+  
+    calcularIndices();
+  }, [
+    ativoCirculante, 
+    ativoReaLongoPrazo, 
+    ativoTotal, 
+    passivoCirculante, 
+    passivoNaoCirculante
+  ]);
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -184,10 +211,10 @@ export default function IndiceInfo({
         {erro && <p>Ocorreu um erro ao enviar os dados: {erro}</p>}
       </div>
       <div>
-        <p>Liquidez Geral: {liquidezGeral || "Indefinido"}</p>
-        <p>Solvência Geral: {solvenciaGeral || "Indefinido"}</p>
-        <p>Liquidez Corrente: {liquidezCorrente || "Indefinido"}</p>
-      </div>
+      <p>Liquidez Geral: {liquidezGeral?.toFixed(2) || "Indefinido"}</p>
+      <p>Solvência Geral: {solvenciaGeral?.toFixed(2) || "Indefinido"}</p>
+      <p>Liquidez Corrente: {liquidezCorrente?.toFixed(2) || "Indefinido"}</p>
+    </div>
 
       <hr />
 
