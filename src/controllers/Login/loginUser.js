@@ -33,7 +33,7 @@ export default function LoginUser() {
           //console.log('idUsuario saved:', userData.idUsuario);
 
           // Redirecionar o usuário para a página inicial ou dashboard
-          navigate('/Home');
+          navigate('/navbarHome');
         } else {
           console.error('idUsuario is undefined:', userData);
         }

@@ -271,7 +271,7 @@ export default function RelatorioInfo() {
                         Imprimir
                     </button>
 
-                    <Link to='/home'>
+                    <Link to='/navbarHome'>
                         <button className="print btn-relatorioInfo">Voltar página inicial</button>
                     </Link>
 

@@ -56,9 +56,9 @@ export default function EmpresasLista() {
                             <div className="item1">
                                 <h3 className="sub">{empresa.razaoSocial}</h3>
                             </div>
-                            <Link to='/Home'>
+                            <Link to='/navbarHome'>
                                 <button onClick={() => handleDelete(empresa.idEmpresa)}>
-                                    <FaTrash className="btn-delete" />
+                                    <FaTrash className="btn-delete" title="Deletar" />
                                 </button>
                             </Link>
                         </div>

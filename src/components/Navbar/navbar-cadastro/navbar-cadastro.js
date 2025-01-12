@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { FaBars, FaTimes, FaRegMinusSquare } from 'react-icons/fa';
-//import { AiFillHome } from "react-icons/ai";
-import '../../Navbar/navbar.css'
+import '../../Navbar/navbar-style.css';
 import { Link } from 'react-router-dom';
 import EmpresasLista from '../../../controllers/EmpresasLista/empresasLista';
 
@@ -18,34 +17,29 @@ export default function NavbarCadastro() {
 
     return (
 
-        <div className='navbar'>
+        <div className='navbar1'>
 
-            <div>
+            <div className='navbar2'>
                 {hamburguerIcon ? (
-                    <FaBars className='btn-hamburguer' onClick={toggleSidebar} title='Empresas Cadastras' />
+                    <FaBars className='btn-hamburguer1' onClick={toggleSidebar} title='Empresas Cadastras' />
                 ) : (
 
-                    < FaTimes className='btn-close' onClick={toggleSidebar} title='Fechar' />
+                    < FaTimes className='btn-close1' onClick={toggleSidebar} title='Fechar' />
 
                 )}
-                <div className={`sidebar ${sidebarOpen ? 'active' : ''}`}>
+                <div className={`sidebar1 ${sidebarOpen ? 'active' : ''}`}>
 
-                    <EmpresasLista/>
+                    <EmpresasLista />
 
                 </div>
 
-            </div>
 
-            {/* <div>
-                <Link to='/home'>
-                    <AiFillHome className='btn-home' title='Voltar página principal'  />
-                </Link>
-            </div> */}
+                <div>
+                    <Link to='/navbarHome'>
+                        < FaRegMinusSquare className='btn-cadastro-fechar1' title='Voltar página principal' />
+                    </Link>
+                </div>
 
-            <div>
-                <Link to='/home'>
-                    < FaRegMinusSquare className='btn-cadastro-fechar' title='Voltar página principal' />
-                </Link>
             </div>
 
         </div>

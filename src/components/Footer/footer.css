@@ -7,22 +7,34 @@ footer{
     left: 0;
     width: 100%;
     background-color: #C0C0C0;
-    color: #fff;
     padding: 8px;
-    font-size: 8px;
-    color: black;
+    font-size: 7px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .text-qualif{
     margin: 0 auto; /* Centraliza horizontalmente */
-    font-weight: bold;
-}
+   }
 
 .contato{
     position: absolute;
     right: 20px; /* Alinha o contato à direita */
     color: rgb(1, 49, 17);
-    font-weight: bold;
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    footer {
+        flex-direction: column; /* Empilha os elementos verticalmente */
+        padding: 8px;
+    }
+
+    .text-qualif, .contato {
+        position: static; /* Remove o posicionamento absoluto */
+        text-align: center; /* Centraliza o texto */
+        margin: 1px 0; /* Adiciona espaço entre os elementos */
+    }
+}
+
+
 

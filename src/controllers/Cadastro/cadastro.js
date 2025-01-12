@@ -139,7 +139,7 @@ export default function Cadastro() {
                                     Cadastrar
                                 </button>
 
-                                <Link to='/home'>
+                                <Link to='/navbarHome'>
                                     <button className='button-cancelar' type="button">
                                         Cancelar
                                     </button>

@@ -45,6 +45,12 @@
     height: 100%;
 }
 
+.sub{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 17px;
+    /* position: fixed; */
+}
+
 .btn-delete{
     width: 15px;
     height: 15px;

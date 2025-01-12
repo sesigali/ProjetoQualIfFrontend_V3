@@ -165,7 +165,7 @@ export default function CadastroDbIndo({
     await delay(2000);
 
     window.open(`/relatorioInfo/${idEmpresa}`);
-    navigate('/Home');
+    navigate('/navbarHome');
   };
 
   const handleSubmit = async (event) => {
@@ -177,20 +177,20 @@ export default function CadastroDbIndo({
     event.preventDefault();
     await saveAllData();
     await deleteAllData();
-    navigate('/Home');
+    navigate('/navbarHome');
   };
 
   return (
     <div>
       <br />
       <div className="container-button">
-        <a href="/Home">
+        <a href="/navbarHome">
           <button className="save btn-empresaInfo" type="button" onClick={handleSubmit}>
             Salvar
           </button>
         </a>
 
-        <Link to="/Home">
+        <Link to="/navbarHome">
         <button className="cancel btn-empresaInfo" onClick={handleSubmitDelete}>Cancelar</button>
         </Link>
       </div>

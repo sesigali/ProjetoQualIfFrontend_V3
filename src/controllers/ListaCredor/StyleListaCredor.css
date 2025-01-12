@@ -1,0 +1,14 @@
+.lista1{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-lista-fechar{
+    color: black;
+    width: 45px;
+    height: 30px;
+    margin-top: 10px;
+    cursor: pointer;
+}
