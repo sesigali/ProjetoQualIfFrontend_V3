@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import { FaBars, FaTimes, FaRegMinusSquare } from 'react-icons/fa';
 import '../../Navbar/navbar-style.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import EmpresasLista from '../../../controllers/EmpresasLista/empresasLista';
 
 export default function NavbarCadastro() {
 
     const [hamburguerIcon, setHamburguerIcon] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const location = useLocation();
 
     const toggleSidebar = () => {
         setHamburguerIcon(!hamburguerIcon);
         setSidebarOpen(!sidebarOpen);
     };
+
+    const showHamburguerIcon = location.pathname === '/cadastro'
 
 
     return (
@@ -20,13 +23,17 @@ export default function NavbarCadastro() {
         <div className='navbar1'>
 
             <div className='navbar2'>
-                {hamburguerIcon ? (
-                    <FaBars className='btn-hamburguer1' onClick={toggleSidebar} title='Empresas Cadastras' />
-                ) : (
+                {showHamburguerIcon && (
+                    hamburguerIcon ? (
+                        <FaBars className='btn-hamburguer1' onClick={toggleSidebar} title='Empresas Cadastras' />
+                    ) : (
 
-                    < FaTimes className='btn-close1' onClick={toggleSidebar} title='Fechar' />
+                        < FaTimes className='btn-close1' onClick={toggleSidebar} title='Fechar' />
+
+                    )
 
                 )}
+
                 <div className={`sidebar1 ${sidebarOpen ? 'active' : ''}`}>
 
                     <EmpresasLista />

@@ -1,14 +1,73 @@
-.lista1{
+.container-lista2 {
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* background-color: aqua; */
+
 }
 
-.btn-lista-fechar{
-    color: black;
-    width: 45px;
+.lista1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: rgb(185, 185, 182); */
+    
+}
+
+.video-lista {
+    margin-top: 80px;
+
+}
+
+.label-lista {
+    padding: 20px;
+
+}
+
+.input-lista {
+    width: 500px;
     height: 30px;
-    margin-top: 10px;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 15px;
+    border: solid 2px rgb(164, 244, 247) ;
+
+}
+
+.button-lista-buscar {
+    width: 80px;
+    height: 30px;
+    padding: 5px;
+    background-color: green;
+    color: #fff;
+    border-radius: 3px;
+    /* font-size: 15px; */
     cursor: pointer;
+}
+
+.button-lista-conf{
+    width: 300px;
+    height: 30px;
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 15px;
+    cursor: pointer;
+    
+    
+}
+
+.button-lista-buscar,
+.button-lista-conf {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media (max-width: 650px) {
+
+     .input-lista{
+        width: 240px;
+        
+     }
+ 
 }
