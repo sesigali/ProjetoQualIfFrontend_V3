@@ -8,13 +8,14 @@ export default function ListaCredor() {
   // Estado para armazenar os dados do Excel após leitura
   const [fileData, setFileData] = useState([]);
   const [error, setError] = useState('');
+  const [copiedBlocks, setCopiedBlocks] = useState([]);
 
   // Função para processar o arquivo Excel
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     // Checa se algum arquivo foi enviado
     if (!file) {
-      setError('Por favor, selecione um arquivo');
+      setError('Por favor, selecione um arquivo.');
       return;
     }
 
@@ -39,6 +40,38 @@ export default function ListaCredor() {
     reader.readAsBinaryString(file);
   };
 
+  // Função para copiar os dados de um bloco específico para a área de transferência
+  const copiarBloco = (bloco, blocoIndex) => {
+    const indiceCPF = fileData[0].indexOf('CPF');
+    const indiceVariacao = fileData[0].indexOf('VARIAÇÃO');
+
+    const conteudo = bloco.map(linha => {
+      let novaLinha = [...linha];
+
+      // Adiciona 3 colunas após o CPF
+      if (indiceCPF !== -1) {
+        novaLinha.splice(indiceCPF + 1, 0, '', '', '');
+      }
+
+      // Adiciona 7 colunas após "variação"
+      if (indiceVariacao !== -1) {
+        novaLinha.splice(indiceVariacao + 4, 0, '', '', '', '', '', '', '');
+      }
+
+      return novaLinha.join('\t');
+    }).join('\n\n'); // Formata para copiar em texto tabulado com linha em branco entre cada linha
+
+    navigator.clipboard.writeText(conteudo)
+      .then(() => setCopiedBlocks([...copiedBlocks, blocoIndex])) // Adiciona o índice do bloco copiado
+      .catch(() => alert('Erro ao copiar os dados.'));
+  };
+
+  // Dividir dados em blocos de 7 linhas (ignora o cabeçalho, que aparece separadamente)
+  const blocos = [];
+  for (let i = 1; i < fileData.length; i += 7) {
+    blocos.push(fileData.slice(i, i + 7));
+  }
+
   return (
     <div className='container-lista1'>
       <NavbarCadastro /><br/>
@@ -56,7 +89,7 @@ export default function ListaCredor() {
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           ></iframe>
-
+          
           <label className="label-lista">
             <input
               className="input-lista"
@@ -64,38 +97,56 @@ export default function ListaCredor() {
               accept=".xls, .xlsx"
               onChange={handleFileUpload}
             />
-            <button className="button-lista-buscar">Buscar</button>
+            {/*<button className="button-lista-buscar">Buscar</button>*/}
           </label>
 
           {error && <p className="error-message">{error}</p>}
 
-          <button className="button-lista-conf">Configurar Lista</button>
+          {/*<button className="button-lista-conf">Configurar Lista</button>*/}
         </div>
 
         <div className="result-container">
           <h3 className="result-title">Dados do Arquivo Excel:</h3>
           {fileData.length > 0 ? (
-            <table className="result-table">
-              <thead>
-                <tr>
-                  {fileData[0].map((header, index) => (
-                    <th key={index}>{header}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {fileData.slice(1).map((row, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {row.map((cell, cellIndex) => (
-                      <td key={cellIndex}>{cell || '-'}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="blocos-container">
+              {blocos.map((bloco, blocoIndex) => (
+                <div
+                  key={blocoIndex}
+                  className={`bloco ${copiedBlocks.includes(blocoIndex) ? 'copied' : ''}`}
+                >
+                  <div className="bloco-header">
+                    <span className="bloco-numero">Bloco {blocoIndex + 1}</span>
+                    <button
+                      className="bloco-copiar"
+                      onClick={() => copiarBloco(bloco, blocoIndex)}
+                    >
+                      Copiar
+                    </button>
+                  </div>
+                  <table className="bloco-tabela">
+                    <thead>
+                      <tr>
+                        {fileData[0].map((header, index) => (
+                          <th key={index}>{header}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {bloco.map((linha, linhaIndex) => (
+                        <tr key={linhaIndex}>
+                          {linha.map((celula, celulaIndex) => (
+                            <td key={celulaIndex}>{celula || '-'}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+            </div>
           ) : (
             <p className="no-data">Nenhum dado carregado.</p>
-          )}<br/><br/>
+          )} <br/><br/>
         </div>
       </div>
 
