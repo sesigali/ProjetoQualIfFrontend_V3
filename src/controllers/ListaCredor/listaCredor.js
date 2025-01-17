@@ -10,6 +10,15 @@ export default function ListaCredor() {
   const [error, setError] = useState('');
   const [copiedBlocks, setCopiedBlocks] = useState([]);
 
+  // Posições das colunas
+  const columnPositions = {
+    CPF: 0,       // Suponha que a coluna CPF está na posição 0
+    BANCO: 1,     // Suponha que a coluna BANCO está na posição 1
+    AGENCIA: 2,   // Suponha que a coluna AGENCIA está na posição 2
+    CONTA: 3,     // Suponha que a coluna CONTA está na posição 3
+    VALOR: 5      // Suponha que a coluna VALOR está na posição 5
+  };
+
   // Função para processar o arquivo Excel
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -29,7 +38,27 @@ export default function ListaCredor() {
         const sheetName = workbook.SheetNames[0]; // Seleciona a primeira aba
         const sheet = workbook.Sheets[sheetName];
         const data = XLSX.utils.sheet_to_json(sheet, { header: 1 }); // Converte para JSON
-        setFileData(data); // Define os dados em estado
+
+        // Formata os CPFs, bancos, agências, contas e valores nas posições corretas
+        const formattedData = data.map((row, rowIndex) => {
+          if (rowIndex === 0) return row; // Mantém os cabeçalhos originais
+          return row.map((cell, cellIndex) => {
+            if (cellIndex === columnPositions.CPF) {
+              return formatCPF(cell);
+            } else if (cellIndex === columnPositions.BANCO) {
+              return formatBanco(cell);
+            } else if (cellIndex === columnPositions.AGENCIA) {
+              return formatAgencia(cell);
+            } else if (cellIndex === columnPositions.CONTA) {
+              return formatConta(cell);
+            } else if (cellIndex === columnPositions.VALOR) {
+              return formatValor(cell);
+            }
+            return cell;
+          });
+        });
+
+        setFileData(formattedData); // Define os dados em estado
         setError(''); // Limpa os erros
       } catch (err) {
         console.error('Erro ao processar o arquivo:', err);
@@ -38,6 +67,40 @@ export default function ListaCredor() {
     };
 
     reader.readAsBinaryString(file);
+  };
+
+  // Função para formatar CPF
+  const formatCPF = (cpf) => {
+    if (!cpf) return '';
+    return cpf.replace(/\D/g, '').padStart(11, '0');
+  };
+
+  // Função para formatar Banco
+  const formatBanco = (banco) => {
+    if (!banco) return '';
+    return banco.toString().padStart(3, '0');
+  };
+
+  // Função para formatar Agência
+  const formatAgencia = (agencia) => {
+    if (!agencia) return '';
+    let formattedAgencia = agencia.toString().replace(/\D/g, '').padStart(4, '0');
+    if (formattedAgencia === '9999' || formattedAgencia === '0999' || formattedAgencia === '999') {
+      formattedAgencia = '0001';
+    }
+    return formattedAgencia;
+  };
+
+  // Função para formatar Conta
+  const formatConta = (conta) => {
+    if (!conta) return '';
+    return conta.toString().replace(/\D/g, ''); // Remove pontos e traços
+  };
+
+  // Função para formatar Valor
+  const formatValor = (valor) => {
+    if (!valor) return '';
+    return valor.toString().replace(/\D/g, '' ); // Remove a vírgula, mantendo todos os números
   };
 
   // Função para copiar os dados de um bloco específico para a área de transferência
@@ -154,3 +217,17 @@ export default function ListaCredor() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
