@@ -30,5 +30,6 @@ export const formatarConta = (conta, banco, tipoConta) => {
 };
 
 export const formatarValor = (valor) => {
-    return valor.replace(',', ''); // Remove a vírgula, mantendo os centavos.
+    if (!valor) return '';
+    return parseFloat(valor) * 100;
 };
