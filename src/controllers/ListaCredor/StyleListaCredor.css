@@ -252,3 +252,46 @@ body {
         font-size: 14px;
     }
 }
+
+.cpf-duplicado {
+    color: red;
+    font-weight: bold;
+}
+  
+.cpf-duplicado:hover::after {
+    content: attr(title); /* Mostra o texto do atributo "title" */
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-top: -25px;
+    white-space: nowrap;
+}
+  
+.title2 {
+    font-size: 30px;
+    margin: 10px;
+    color: #333333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 60px;
+    right: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20%;
+    padding: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.scroll-to-top:hover {
+    opacity: 1;
+}
