@@ -373,7 +373,7 @@ export default function ListaCredor() {
       } 
       
       if (indiceConta !== -1) {
-        novaLinha = [...novaLinha.slice(0, indiceConta + 4), '', '', '', '', '', '', '', '', ...novaLinha.slice(indiceConta + 4)];
+        novaLinha = [...novaLinha.slice(0, indiceConta + 4), '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ...novaLinha.slice(indiceConta + 4)];
       }   
       
       return novaLinha.join('\t'); // Junta as colunas da linha em formato de texto tabulado
@@ -395,8 +395,18 @@ export default function ListaCredor() {
       <NavbarCadastro /><br />
 
       <div className="container-lista2">
-        <div className="lista1"><br />
-          <h1 className='title2' >Lista Credor</h1>
+        <div className="lista1">
+
+          {/* Introdução adicionada aqui */}
+          <div className="intro-container">
+            <h2 className="title2">Bem-vindo ao Sistema de Lista de Credores</h2>
+            <p className="intro-text">
+            O sistema QualIF - Módulo Lista de Credor automatiza a formatação de dados financeiros de planilhas Excel, 
+            organizando informações de credores de forma eficiente e em conformidade com o ATULC do SIAFI. Sua interface intuitiva 
+            elimina ajustes manuais e reduz erros.
+            </p>
+          </div>
+
           <iframe
             className="video-lista"
             width="360"
@@ -471,7 +481,7 @@ export default function ListaCredor() {
             </div>
           ) : (
             <p className="no-data">Nenhum dado carregado.</p>
-          )}
+          )}<br />
         </div>
       </div>
       {showScrollButton && (
