@@ -318,7 +318,7 @@ export default function ListaCredor() {
                             </tr>
                         ))}
                     </tbody>
-                  </table>
+                  </table><br />
                 </div>
               ))}
             </div>
