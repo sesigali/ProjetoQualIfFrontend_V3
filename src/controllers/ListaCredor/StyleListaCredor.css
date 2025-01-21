@@ -253,13 +253,34 @@ body {
     }
 }
 
+/* Para CPF inválido */
+.cpf-invalido {
+    color: green;
+    font-weight: bold;
+}
+
+/* Exibição do tooltip ao passar o mouse sobre o CPF inválido */
+.cpf-invalido:hover::after {
+    content: attr(title);
+    position: absolute;
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin-top: -25px;
+    white-space: nowrap;
+}
+
+/* Para CPF duplicado */
 .cpf-duplicado {
     color: red;
     font-weight: bold;
 }
-  
+
+/* Exibição do tooltip ao passar o mouse sobre o CPF duplicado */
 .cpf-duplicado:hover::after {
-    content: attr(title); /* Mostra o texto do atributo "title" */
+    content: attr(title);
     position: absolute;
     background-color: black;
     color: white;
