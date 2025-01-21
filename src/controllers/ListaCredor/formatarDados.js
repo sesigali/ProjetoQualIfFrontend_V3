@@ -30,5 +30,29 @@ export const formatarConta = (conta, banco, tipoConta) => {
 };
 
 export const formatarValor = (valor) => {
-    return valor.replace(',', ''); // Remove a vírgula, mantendo os centavos.
+    if (!valor) return '';
+    return parseFloat(valor) * 100;
 };
+
+export const detectarCPFsDuplicados = (fileData, indiceCPF) => {
+    const cpfCount = {}; // Contador dos CPFs
+
+    fileData.forEach((linha, index) => {
+        if (index === 0) return; // Ignorar a primeira linha (cabeçalho)
+        const cpf = linha[indiceCPF];
+        if (!cpf) return;
+
+        if (cpfCount[cpf]) {
+            cpfCount[cpf]++;
+        } else {
+            cpfCount[cpf] = 1;
+        }
+    });
+
+    // Retornar um objeto com os CPFs duplicados marcados como true
+    return Object.keys(cpfCount).reduce((acc, cpf) => {
+        if (cpfCount[cpf] > 1) acc[cpf] = true;
+        return acc;
+    }, {});
+};
+
