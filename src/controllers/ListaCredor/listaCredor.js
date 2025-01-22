@@ -18,21 +18,43 @@ export const formatarBanco = (banco) => {
     return banco.toString().padStart(3, '0');
 };
 
-// Função para formatar Agência
+
+// Função para formatar Agência com 4 dígitos
 export const formatarAgencia = (agencia) => {
-    if (!agencia) return '';
-    let formattedAgencia = agencia.toString().replace(/\D/g, '').padStart(4, '0');
-    if (formattedAgencia === '9999' || formattedAgencia === '0999' || formattedAgencia === '999') {
+  if (!agencia) return '';
+  // Remove qualquer caractere que não seja numérico
+  let formattedAgencia = agencia.toString().replace(/\D/g, ''); // Remove pontos, traços, espaços, letras, etc.
+
+  // Limita a agência a 4 números e preenche com zeros à esquerda, se necessário
+  formattedAgencia = formattedAgencia.slice(0, 4).padStart(4, '0');
+
+  // Ajusta casos específicos como '9999' para '0001'
+  if (['9999', '0999', '999'].includes(formattedAgencia)) {
       formattedAgencia = '0001';
-    }
-    return formattedAgencia;
+  }
+
+  return formattedAgencia;
 };
+
+console.log(formatarAgencia('3589-9')); 
+
+
+// Função para formatar Conta
+// export const formatarConta = (conta) => {
+//     if (!conta) return '';
+//     return conta.toString().replace(/\D/g, '');
+// };
 
 // Função para formatar Conta
 export const formatarConta = (conta) => {
-    if (!conta) return '';
-    return conta.toString().replace(/\D/g, '');
+  if (!conta) return '';
+  // Remove todos os caracteres não numéricos, exceto o dígito "X" no final
+  const contaSemDigito = conta.toString().slice(0, -1).replace(/\D/g, '');
+  const digito = conta.toString().slice(-1).toUpperCase();
+  // Verifica se o último caractere é "X" e o mantém, caso contrário, ignora
+  return digito === 'X' ? contaSemDigito + digito : contaSemDigito;
 };
+
 
 // Função para formatar Valor
 export const formatarValor = (valor) => {
