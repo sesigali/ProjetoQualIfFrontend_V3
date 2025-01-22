@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import Footer from '../../components/Footer/footer';
 import './StyleListaCredor.css';
 import NavbarCadastro from '../../components/Navbar/navbar-cadastro/navbar-cadastro';
-import { FaArrowUp } from 'react-icons/fa'; // Importe o ícone de seta para cima
+import { FaArrowUp } from 'react-icons/fa';
 
 // Função para formatar CPF
 export const formatarCPF = (cpf) => {
@@ -18,35 +18,19 @@ export const formatarBanco = (banco) => {
     return banco.toString().padStart(3, '0');
 };
 
-
 // Função para formatar Agência com 4 dígitos
 export const formatarAgencia = (agencia) => {
-  if (!agencia) return '';
-  // Remove qualquer caractere que não seja numérico
-  let formattedAgencia = agencia.toString().replace(/\D/g, ''); // Remove pontos, traços, espaços, letras, etc.
-
-  // Limita a agência a 4 números e preenche com zeros à esquerda, se necessário
-  formattedAgencia = formattedAgencia.slice(0, 4).padStart(4, '0');
-
-  // Ajusta casos específicos como '9999' para '0001'
-  if (['9999', '0999', '999'].includes(formattedAgencia)) {
-      formattedAgencia = '0001';
-  }
-
-  return formattedAgencia;
+    if (!agencia) return '';
+    let formattedAgencia = agencia.toString().replace(/\D/g, '');
+    formattedAgencia = formattedAgencia.slice(0, 4).padStart(4, '0');
+    if (['9999', '0999', '999'].includes(formattedAgencia)) {
+        formattedAgencia = '0001';
+    }
+    return formattedAgencia;
 };
 
-console.log(formatarAgencia('3589-9')); 
-
-
 // Função para formatar Conta
-// export const formatarConta = (conta) => {
-//     if (!conta) return '';
-//     return conta.toString().replace(/\D/g, '');
-// };
-
-// Função para formatar Conta
-export const formatarConta = (conta) => {
+/*export const formatarConta2 = (conta) => {
   if (!conta) return '';
   // Remove todos os caracteres não numéricos, exceto o dígito "X" no final
   const contaSemDigito = conta.toString().slice(0, -1).replace(/\D/g, '');
@@ -55,6 +39,83 @@ export const formatarConta = (conta) => {
   return digito === 'X' ? contaSemDigito + digito : contaSemDigito;
 };
 
+// Função para formatar Conta
+export const formatarConta = (conta, variacao, banco) => {
+    if (!conta) return '';
+
+    const bancoBB = ['001', '01', '1'].includes(banco);
+    const isPoupanca = variacao === 'Conta Poupança';
+
+    if (bancoBB && isPoupanca) {
+        const contaNumerica = conta.toString().replace(/\D/g, '');
+        return `51${contaNumerica.padStart(8, '0')}`;
+    } else {
+        const contaSemDigito = conta.toString().slice(0, -1).replace(/\D/g, '');
+        const digito = conta.toString().slice(-1).toUpperCase();
+        return digito === 'X' ? contaSemDigito + digito : contaSemDigito;
+    }
+};
+*/
+
+// Função para tratar o "X" na conta
+export const tratarXNaConta = (conta) => {
+  if (!conta) return '';
+  return conta.toString().toUpperCase(); // Apenas converte para maiúscula, mantendo o X
+};
+
+// Mapeamento para substituir o último dígito na poupança DO BB
+const mapaPoupancaBB = {
+  '0': '3',
+  '1': '4',
+  '2': '5',
+  '3': '6',
+  '4': '7',
+  '5': '8',
+  '6': '9',
+  '7': 'X',
+  '8': '0',
+  '9': '1',
+  'X': '2',
+};
+
+// Função para formatar Conta
+export const formatarConta = (conta, variacao, banco) => {
+  if (!conta) return '';
+
+  const contaTratada = tratarXNaConta(conta); // Chama a função para tratar o 'X'
+
+  const bancoBB = ['001', '01', '1'].includes(banco);
+  const bancoItau = ['341'].includes(banco);
+  const bancoSantander = ['033', '33'].includes(banco);
+  
+  //const isPoupanca = variacao === 'CONTA POUPANÇA' || 'POUPANÇA' || 'P';
+  // Corrige a verificação de isPoupanca
+  const isPoupanca = ['CONTA POUPANÇA', 'CONTA POUPANCA', 'POUPANCA', 'POUPANÇA', 'P'].includes(variacao.toUpperCase());
+
+  // Remove caracteres indesejados para todos os casos
+  let contaNumerica = contaTratada.replace(/[^0-9X]/g, ''); // Remove não numéricos, exceto X
+
+  if (isPoupanca) { // Apenas verifica se é Banco do Brasil
+    if (bancoBB) {
+      // Substituir o último dígito conforme a tabela, se for conta poupança
+      const ultimoDigito = contaNumerica.slice(-1); // Obtém o último dígito
+      const novoDigito = mapaPoupancaBB[ultimoDigito] || ultimoDigito; // Substitui pelo novo valor ou mantém o mesmo
+      contaNumerica = contaNumerica.slice(0, -1) + novoDigito; // Atualiza o último dígito
+
+      return `51${contaNumerica.padStart(8, '0')}`;
+    } else if (bancoItau) {
+       return `500${contaNumerica}`;
+
+    } else if (bancoSantander) {
+       return `600${contaNumerica}`;
+
+    } else { // É conta corrente ou outro tipo de conta do BB
+      return contaNumerica; // Retorna a conta tratada (com o X, se houver)
+    }
+  } else { // Outros bancos
+    return contaNumerica; // Retorna a conta tratada (com o X, se houver)
+  }
+};
 
 // Função para formatar Valor
 export const formatarValor = (valor) => {
@@ -75,7 +136,6 @@ export const validarCPF = (cpf) => {
     let soma = 0;
     let resto;
 
-    // Calcula o primeiro dígito verificador
     for (let i = 1; i <= 9; i++) {
         soma += parseInt(cpfNumerico.substring(i - 1, i)) * (11 - i);
     }
@@ -84,7 +144,6 @@ export const validarCPF = (cpf) => {
     if (resto !== parseInt(cpfNumerico.substring(9, 10))) return false;
 
     soma = 0;
-    // Calcula o segundo dígito verificador
     for (let i = 1; i <= 10; i++) {
         soma += parseInt(cpfNumerico.substring(i - 1, i)) * (12 - i);
     }
@@ -100,7 +159,7 @@ export const detectarCPFsDuplicados = (fileData, indiceCPF) => {
     const cpfCount = {};
 
     fileData.forEach((linha, index) => {
-        if (index === 0) return; // Ignorar cabeçalho
+        if (index === 0) return; 
         const cpf = linha[indiceCPF];
         if (!cpf) return;
 
@@ -111,7 +170,6 @@ export const detectarCPFsDuplicados = (fileData, indiceCPF) => {
         }
     });
 
-    // Retorna CPFs duplicados
     return Object.keys(cpfCount).reduce((acc, cpf) => {
         if (cpfCount[cpf] > 1) acc[cpf] = true;
         return acc;
@@ -119,131 +177,129 @@ export const detectarCPFsDuplicados = (fileData, indiceCPF) => {
 };
 
 export default function ListaCredor() {
-  const [fileData, setFileData] = useState([]);
-  const [error, setError] = useState('');
-  const [copiedBlocks, setCopiedBlocks] = useState([]);
-  const [duplicadosCPF, setDuplicadosCPF] = useState({}); // Estado para CPFs duplicados
-  const [showScrollButton, setShowScrollButton] = useState(false);
+    const [fileData, setFileData] = useState([]);
+    const [error, setError] = useState('');
+    const [copiedBlocks, setCopiedBlocks] = useState([]);
+    const [duplicadosCPF, setDuplicadosCPF] = useState({});
+    const [showScrollButton, setShowScrollButton] = useState(false);
 
-  const columnPositions = {
-    CPF: 0,
-    BANCO: 1,
-    AGENCIA: 2,
-    CONTA: 3,
-    VALOR: 5,
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setShowScrollButton(true);
-      } else {
-        setShowScrollButton(false);
-      }
+    const columnPositions = {
+        CPF: 0,
+        BANCO: 1,
+        AGENCIA: 2,
+        CONTA: 3,
+        VARIACAO: 4, // Certifique-se de que este índice esteja correto
+        VALOR: 5,
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) {
-      setError('Por favor, selecione um arquivo.');
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const binaryStr = event.target.result;
-      try {
-        const workbook = XLSX.read(binaryStr, { type: 'binary' });
-        const sheetName = workbook.SheetNames[0];
-        const sheet = workbook.Sheets[sheetName];
-        const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-        console.log('Dados lidos do Excel:', data);
-
-        // Formata os dados, incluindo o CPF
-        const formattedData = data.map((row, rowIndex) => {
-          if (rowIndex === 0) return row; // Mantém o cabeçalho original
-          return row.map((cell, cellIndex) => {
-            if (cellIndex === columnPositions.CPF) {
-              return formatarCPF(cell); // Aplica formatação ao CPF
-            } else if (cellIndex === columnPositions.BANCO) {
-              return formatarBanco(cell);
-            } else if (cellIndex === columnPositions.AGENCIA) {
-              return formatarAgencia(cell);
-            } else if (cellIndex === columnPositions.CONTA) {
-              return formatarConta(cell);
-            } else if (cellIndex === columnPositions.VALOR) {
-              return formatarValor(cell);
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 300) {
+                setShowScrollButton(true);
+            } else {
+                setShowScrollButton(false);
             }
-            return cell; // Mantém outras células sem alteração
-          });
-        });
+        };
 
-        // Identificar CPFs duplicados
-        const indiceCPF = formattedData[0]?.indexOf('CPF');
-        if (indiceCPF === -1) {
-          setError('A coluna "CPF" não foi encontrada no arquivo.');
-          return;
-        }
-        const duplicados = detectarCPFsDuplicados(formattedData, indiceCPF);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
-        setDuplicadosCPF(duplicados); // Atualiza o estado com CPFs duplicados
-        setFileData(formattedData); // Salva os dados formatados
-        setError('');
-      } catch (err) {
-        console.error('Erro ao processar o arquivo:', err);
-        setError('Erro ao processar o arquivo. Verifique o formato.');
-      }
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    reader.readAsBinaryString(file);
-  };
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) {
+            setError('Por favor, selecione um arquivo.');
+            return;
+        }
 
-  // Função para copiar o bloco (preservada como no código original)
-  const copiarBloco = (bloco, blocoIndex) => {
-    const indiceCPF = fileData[0].indexOf('CPF');
-    const indiceConta = fileData[0].indexOf('CONTA');
-    const indiceVariacao = fileData[0].indexOf('VARIAÇÃO'); // Index da coluna "VARIAÇÃO"
-  
-    // Mapeia todas as linhas do bloco
-    const conteudo = bloco.map(linha => {
-      let novaLinha = [...linha];
-      
-      if (indiceCPF !== -1) {
-        novaLinha = [...novaLinha.slice(0, indiceCPF + 1), '', '', '', ...novaLinha.slice(indiceCPF + 1)];
-      }
-      
-      // Remove a coluna "VARIAÇÃO"
-      if (indiceVariacao !== -1) {
-        novaLinha.splice(7, 1); // Remove o elemento da posição correspondente
-      } 
-      
-      if (indiceConta !== -1) {
-        novaLinha = [...novaLinha.slice(0, indiceConta + 4), '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ...novaLinha.slice(indiceConta + 4)];
-      }   
-      
-      return novaLinha.join('\t'); // Junta as colunas da linha em formato de texto tabulado
-    }).join('\n\n'); // Junta as linhas com quebras de linha duplas
-  
-    // Copia o resultado formatado para a área de transferência
-    navigator.clipboard.writeText(conteudo)
-      .then(() => setCopiedBlocks([...copiedBlocks, blocoIndex]))
-      .catch(() => alert('Erro ao copiar os dados.'));
-  };
-  
-  const blocos = [];
-  for (let i = 1; i < fileData.length; i += 7) {
-    blocos.push(fileData.slice(i, i + 7));
-  }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const binaryStr = event.target.result;
+            try {
+                const workbook = XLSX.read(binaryStr, { type: 'binary' });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
+                console.log('Dados lidos do Excel:', data);
+
+                const formattedData = data.map((row, rowIndex) => {
+                    if (rowIndex === 0) return row;
+                    return row.map((cell, cellIndex) => {
+                        if (cellIndex === columnPositions.CPF) {
+                            return formatarCPF(cell);
+                        } else if (cellIndex === columnPositions.BANCO) {
+                            return formatarBanco(cell);
+                        } else if (cellIndex === columnPositions.AGENCIA) {
+                            return formatarAgencia(cell);
+                        } else if (cellIndex === columnPositions.CONTA) {
+                            const variacao = row[columnPositions.VARIACAO]?.toUpperCase();
+                            const banco = row[columnPositions.BANCO];
+                            return formatarConta(cell, variacao, banco);
+                        } else if (cellIndex === columnPositions.VALOR) {
+                            return formatarValor(cell);
+                        }
+                        return cell;
+                    });
+                });
+
+
+                const indiceCPF = formattedData[0]?.indexOf('CPF');
+                if (indiceCPF === -1) {
+                    setError('A coluna "CPF" não foi encontrada no arquivo.');
+                    return;
+                }
+                const duplicados = detectarCPFsDuplicados(formattedData, indiceCPF);
+
+                setDuplicadosCPF(duplicados);
+                setFileData(formattedData);
+                setError('');
+            } catch (err) {
+                console.error('Erro ao processar o arquivo:', err);
+                setError('Erro ao processar o arquivo. Verifique o formato.');
+            }
+        };
+
+        reader.readAsBinaryString(file);
+    };
+
+    const copiarBloco = (bloco, blocoIndex) => {
+        const indiceCPF = fileData[0].indexOf('CPF');
+        const indiceConta = fileData[0].indexOf('CONTA');
+        const indiceVariacao = fileData[0].indexOf('VARIAÇÃO');
+
+        const conteudo = bloco.map(linha => {
+            let novaLinha = [...linha];
+
+            if (indiceCPF !== -1) {
+                novaLinha = [...novaLinha.slice(0, indiceCPF + 1), '', '', '', ...novaLinha.slice(indiceCPF + 1)];
+            }
+
+            if (indiceVariacao !== -1) {
+                novaLinha.splice(7, 1);
+            }
+
+            if (indiceConta !== -1) {
+                novaLinha = [...novaLinha.slice(0, indiceConta + 4), '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ...novaLinha.slice(indiceConta + 4)];
+            }
+
+            return novaLinha.join('\t');
+        }).join('\n\n');
+
+        navigator.clipboard.writeText(conteudo)
+            .then(() => setCopiedBlocks([...copiedBlocks, blocoIndex]))
+            .catch(() => alert('Erro ao copiar os dados.'));
+    };
+
+
+    const blocos = [];
+    for (let i = 1; i < fileData.length; i += 7) {
+        blocos.push(fileData.slice(i, i + 7));
+    }
   return (
     <div className='container-lista1'>
       <NavbarCadastro /><br />
