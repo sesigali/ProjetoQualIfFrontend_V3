@@ -84,11 +84,10 @@ export const formatarConta = (conta, variacao, banco) => {
 
   const contaTratada = tratarXNaConta(conta); // Chama a função para tratar o 'X'
 
-  const bancoBB = ['001', '01', '1'].includes(banco);
-  const bancoItau = ['341'].includes(banco);
-  const bancoSantander = ['033', '33'].includes(banco);
+  const bancoBB = ['001', '01', '1'].includes(banco.toString());
+  const bancoItau = ['341'].includes(banco.toString());
+  const bancoSantander = ['033', '33'].includes(banco.toString());
   
-  //const isPoupanca = variacao === 'CONTA POUPANÇA' || 'POUPANÇA' || 'P';
   // Corrige a verificação de isPoupanca
   const isPoupanca = ['CONTA POUPANÇA', 'CONTA POUPANCA', 'POUPANCA', 'POUPANÇA', 'P'].includes(variacao.toUpperCase());
 
@@ -260,7 +259,7 @@ export default function ListaCredor() {
                 setError('');
             } catch (err) {
                 console.error('Erro ao processar o arquivo:', err);
-                setError('Erro ao processar o arquivo. Verifique o formato.');
+                setError('Erro ao processar o arquivo. Verifique a formatação das colunas.');
             }
         };
 
@@ -312,10 +311,12 @@ export default function ListaCredor() {
             <p className="intro-text">
               O sistema QualIF - Módulo Lista de Credor automatiza a formatação de dados financeiros de planilhas Excel, 
               organizando informações de credores de forma eficiente e em conformidade com o ATULC do SIAFI. Sua interface intuitiva 
-              elimina ajustes manuais e reduz erros.
+              elimina ajustes manuais e reduz erros. A planilha deve conter as seguintes colunas:
             </p>
           </div>
-
+          
+          <p className="intro-text">CPF  |  BANCO  |  AGÊNCIA  |  CONTA  |  VARIAÇÃO  |  VALOR</p>
+          
           <iframe
             className="video-lista"
             width="360"
@@ -326,7 +327,7 @@ export default function ListaCredor() {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-          ></iframe>
+            ></iframe>
 
           <label className="label-lista">
             <input
@@ -368,7 +369,7 @@ export default function ListaCredor() {
                     </thead>
                       <tbody>
                         {bloco.map((linha, linhaIndex) => (
-                            <tr key={linhaIndex}>
+                            <tr key={linhaIndex} >
                                 {linha.map((celula, celulaIndex) => {
                                     const isDuplicate = duplicadosCPF[celula];
                                     const isValid = validarCPF(celula);
@@ -382,11 +383,16 @@ export default function ListaCredor() {
                                         : celulaIndex === columnPositions.CPF && isDuplicate
                                         ? 'cpf-duplicado'
                                         : '';
+                                    const variacao = linha[columnPositions.VARIACAO]?.toUpperCase();
+                                    const isPoupanca = ['CONTA POUPANÇA', 'CONTA POUPANCA', 'POUPANCA', 'POUPANÇA', 'P'].includes(variacao);
+                                    const isVariacaoCell = celulaIndex === columnPositions.VARIACAO; // Nova variável
+
+                                    const cellClassName = `${className} ${isVariacaoCell && isPoupanca ? 'linha-poupanca' : ''}`;
 
                                     return (
                                         <td
                                             key={celulaIndex}
-                                            className={className}
+                                            className={cellClassName}
                                             title={tooltip}
                                         >
                                             {celula || '-'}
@@ -404,7 +410,7 @@ export default function ListaCredor() {
             <p className="no-data">Nenhum dado carregado.</p>
           )}
         </div>
-      </div>
+      </div><br /><br /><br />
       {showScrollButton && (
         <button onClick={scrollToTop} className="scroll-to-top">
           <FaArrowUp />

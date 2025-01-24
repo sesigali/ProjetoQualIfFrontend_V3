@@ -320,18 +320,23 @@ body {
 .intro-container {
     text-align: justify;
     margin-bottom: 20px;
-  }
+}
   
-  .intro-title {
+.intro-title {
     font-size: 1.5em;
     font-weight: bold;
     color: #333;
-  }
+}
   
-  .intro-text {
+.intro-text {
     font-size: 1em;
     color: #666;
     max-width: 600px;
     margin: 0 auto;
-  }
+}
+  
+.linha-poupanca {
+    font-weight: bold;
+}
+
   
