@@ -29,38 +29,12 @@ export const formatarAgencia = (agencia) => {
     return formattedAgencia;
 };
 
-// Função para formatar Conta
-/*export const formatarConta2 = (conta) => {
-  if (!conta) return '';
-  // Remove todos os caracteres não numéricos, exceto o dígito "X" no final
-  const contaSemDigito = conta.toString().slice(0, -1).replace(/\D/g, '');
-  const digito = conta.toString().slice(-1).toUpperCase();
-  // Verifica se o último caractere é "X" e o mantém, caso contrário, ignora
-  return digito === 'X' ? contaSemDigito + digito : contaSemDigito;
-};
-
-// Função para formatar Conta
-export const formatarConta = (conta, variacao, banco) => {
-    if (!conta) return '';
-
-    const bancoBB = ['001', '01', '1'].includes(banco);
-    const isPoupanca = variacao === 'Conta Poupança';
-
-    if (bancoBB && isPoupanca) {
-        const contaNumerica = conta.toString().replace(/\D/g, '');
-        return `51${contaNumerica.padStart(8, '0')}`;
-    } else {
-        const contaSemDigito = conta.toString().slice(0, -1).replace(/\D/g, '');
-        const digito = conta.toString().slice(-1).toUpperCase();
-        return digito === 'X' ? contaSemDigito + digito : contaSemDigito;
-    }
-};
-*/
-
-// Função para tratar o "X" na conta
+// Função para tratar o "X" na conta e remover zeros à esquerda
 export const tratarXNaConta = (conta) => {
   if (!conta) return '';
-  return conta.toString().toUpperCase(); // Apenas converte para maiúscula, mantendo o X
+  const contaMaiuscula = conta.toString().toUpperCase(); // Converte para maiúscula
+  const contaSemZeros = contaMaiuscula.replace(/^0+/, ''); // Remove zeros à esquerda
+  return contaSemZeros;
 };
 
 // Mapeamento para substituir o último dígito na poupança DO BB
@@ -116,12 +90,14 @@ export const formatarConta = (conta, variacao, banco) => {
   }
 };
 
-// Função para formatar Valor
+// Função para formatar Valor, removendo R$, espaços e caracteres especiais
 export const formatarValor = (valor) => {
-    if (!valor) return '';
-    const valorMultiplicado = parseFloat(valor) * 100;
-    return valorMultiplicado.toFixed(0);
+  if (!valor) return '';
+  const valorSemFormatacao = valor.toString().replace(/[^0-9,.]/g, ''); // Remove R$, espaços e outros caracteres não numéricos
+  const valorFinal = parseFloat(valorSemFormatacao.replace(',', '.')) * 100; // Substitui vírgula por ponto e multiplica por 100
+  return valorFinal.toFixed(0); // Retorna como string sem casas decimais
 };
+
 
 // Função para validar CPF
 export const validarCPF = (cpf) => {
