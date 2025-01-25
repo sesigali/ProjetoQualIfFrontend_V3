@@ -296,8 +296,8 @@ export default function ListaCredor() {
           <iframe
             className="video-lista"
             width="360"
-            height="200"
-            src="https://www.youtube.com/embed/DD3amWHThKk?si=aWNvh0A1XmRaF1h7"
+            height="210"
+            src="https://www.youtube.com/embed/f6l_bIeARRc?si=zqV8jXtsP1CjWVdF"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
