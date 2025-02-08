@@ -230,6 +230,12 @@ export default function ListaCredor() {
                 }
                 const duplicados = detectarCPFsDuplicados(formattedData, indiceCPF);
 
+                const indiceVariacao = formattedData[0]?.indexOf('VARIAÇÃO');
+                if (indiceVariacao === -1) {
+                    setError('A coluna "VARIAÇÃO" não foi encontrada no arquivo.');
+                    return;
+                }
+                
                 setDuplicadosCPF(duplicados);
                 setFileData(formattedData);
                 setError('');
