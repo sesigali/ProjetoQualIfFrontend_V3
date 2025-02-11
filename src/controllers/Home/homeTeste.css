@@ -1,79 +1,158 @@
-/* home.css */
-.content1{
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    /* background-color: violet; */
-    
+/* Importa a fonte Mulish do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;700;800;900&display=swap');
+
+/* Estilos globais */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Evita rolagem horizontal */
+  font-family: 'Mulish', sans-serif; /* Define a fonte global */
+  color: #595959; /* Define a cor do texto global */
+  line-height: 1.6; /* Define o espaçamento entre linhas global */
+  background: #eb7777;
 }
+
+.content1 {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f0f0; /* Faixa cinza clara */
+  padding: 20px 0;
+  overflow-y: hidden; /* Remove a rolagem do content1 */
+}
+
+.email-template-container {
+  background-color: #fff;
+  width: 90%; /* Aumenta a largura do contêiner */
+  max-width: 1000px; /* Aumenta a largura máxima */
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Adiciona rolagem vertical */
+  max-height: 80vh; /* Define uma altura máxima para ativar a rolagem */
+}
+
+.header {
+  text-align: center;
+  background-color: #8BBB11;
+  padding: 20px;
+  color: #FFF;
+  font-size: 17px; /* Ajusta o tamanho da fonte */
+  font-weight: 700; /* Define o peso da fonte */
+  line-height: 1.6; /* Define o espaçamento entre linhas */
+}
+
+.content-section {
+  padding: 20px;
+  background-color: #FFFFFF;
+  text-align: justify;
+  margin-bottom: 20px;
+  font-size: 16px; /* Define o tamanho da fonte */
+  line-height: 1.6; /* Define o espaçamento entre linhas */
+}
+
+.video-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.cta-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.cta-section a {
+  background-color: #003d50;
+  padding: 10px 20px;
+  color: #FFF;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500; /* Define o peso da fonte */
+}
+
+.footer-section {
+  background-color: #8BBB11;
+  padding: 20px;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 14px; /* Define o tamanho da fonte */
+  line-height: 1.6; /* Define o espaçamento entre linhas */
+}
+
+/* home.css */
+.content1 {
+  min-height: 100vh; /* Permite que o conteúdo cresça */
+  display: flex;
+  flex-direction: column; /* Permite que o conteúdo cresça verticalmente */
+  align-items: center;
+  overflow-y: auto; /* Permite a rolagem vertical */
+}
+
 .content2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;    
-    /* background-color: yellow; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
 }
 
 .image1 {
-    width: 55%;
-    padding: 15px;
-    display: block;
-    margin: 0 auto;
-    margin-top: -100px;
-    /* background-color: rgb(235, 8, 8); */
+  width: 55%;
+  padding: 15px;
+  display: block;
+  margin: 0 auto;
+  margin-top: -100px;
 }
 
 .text2 {
-    flex: 1;
-    padding: 5px;
-    margin: 10px;
-    text-align: justify;
-    font-size: 18px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    font-weight: 600;
-    /* background-color: rgb(9, 252, 61); */
+  flex: 1;
+  padding: 5px;
+  margin: 10px;
+  text-align: justify;
+  font-size: 18px;
+  font-family: 'Mulish', Tahoma, Geneva, Verdana, sans-serif; /* Define a fonte específica */
+  font-weight: 600;
+  color: #595959; /* Define a cor do texto */
+  line-height: 1.6; /* Define o espaçamento entre linhas */
 }
 
 .video1 {
-    display: flex;
-    padding:5px;
-    justify-content: center;
-    align-items: center;
-    margin-top: -100px;
-    /* background-color: teal; */
+  display: flex;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+  margin-top: -100px;
 }
 
-
-/* Media Queries para diferentes tamanhos de tela */
 @media (max-width: 768px) {
-    
-    .content2 {
-        flex-direction: column;
-        height: 90vh;
-        overflow-y: auto;
-        /* background-color: yellow; */
-    }
+  .content2 {
+    flex-direction: column;
+    overflow-y: auto;
+  }
 
-    .image1 {
-        margin-top: 350px;
-        width: 40%;
-    }
+  .image1 {
+    margin-top: 350px;
+    width: 40%;
+  }
 
-    .text2{
-        width: 70%;
-        margin: 0 auto;
-    }
-   
-    .video1{
-       margin: 0 auto;
-       min-height: 70vh;
-    }
+  .text2 {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .video1 {
+    margin: 0 auto;
+    min-height: 70vh;
+  }
 }
 
 @media (max-width: 480px) {
-
-    .text1 {
+  .text1 {
     margin-top: 150px;
-    } 
- 
+  }
+}
+
+ul {
+    padding-left: 40px; /* Ajuste o valor conforme necessário */
 }
