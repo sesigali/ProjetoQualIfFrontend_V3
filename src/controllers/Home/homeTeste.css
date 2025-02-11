@@ -3,14 +3,14 @@
 
 /* Estilos globais */
 body, html {
-  height: 100%;
+  /*height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Evita rolagem horizontal */
+  overflow-x: hidden; /* Evita rolagem horizontal
   font-family: 'Mulish', sans-serif; /* Define a fonte global */
-  color: #595959; /* Define a cor do texto global */
-  line-height: 1.6; /* Define o espaçamento entre linhas global */
-  background: #eb7777;
+  color: #4a4a4a; /* Define a cor do texto global */
+  /*line-height: 1.6;  Define o espaçamento entre linhas global */
+  background: #77eb853d;
 }
 
 .content1 {
