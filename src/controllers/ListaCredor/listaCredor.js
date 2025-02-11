@@ -7,26 +7,26 @@ import { FaArrowUp } from 'react-icons/fa';
 
 // Função para formatar CPF
 export const formatarCPF = (cpf) => {
-    if (!cpf) return '';
-    const cpfNumerico = String(cpf).replace(/\D/g, '');
-    return cpfNumerico.padStart(11, '0');
+  if (!cpf) return '';
+  const cpfNumerico = String(cpf).replace(/\D/g, '');
+  return cpfNumerico.padStart(11, '0');
 };
 
 // Função para formatar Banco
 export const formatarBanco = (banco) => {
-    if (!banco) return '';
-    return banco.toString().padStart(3, '0');
+  if (!banco) return '';
+  return banco.toString().padStart(3, '0');
 };
 
 // Função para formatar Agência com 4 dígitos
 export const formatarAgencia = (agencia) => {
-    if (!agencia) return '';
-    let formattedAgencia = agencia.toString().replace(/\D/g, '');
-    formattedAgencia = formattedAgencia.slice(0, 4).padStart(4, '0');
-    if (['9999', '0999', '999'].includes(formattedAgencia)) {
-        formattedAgencia = '0001';
-    }
-    return formattedAgencia;
+  if (!agencia) return '';
+  let formattedAgencia = agencia.toString().replace(/\D/g, '');
+  formattedAgencia = formattedAgencia.slice(0, 4).padStart(4, '0');
+  if (['9999', '0999', '999'].includes(formattedAgencia)) {
+    formattedAgencia = '0001';
+  }
+  return formattedAgencia;
 };
 
 // Função para tratar o "X" na conta e remover zeros à esquerda
@@ -61,7 +61,7 @@ export const formatarConta = (conta, variacao, banco) => {
   const bancoBB = ['001', '01', '1'].includes(banco.toString());
   const bancoItau = ['341'].includes(banco.toString());
   const bancoSantander = ['033', '33'].includes(banco.toString());
-  
+
   // Corrige a verificação de isPoupanca
   const isPoupanca = ['CONTA POUPANÇA', 'CONTA POUPANCA', 'POUPANCA', 'POUPANÇA', 'P'].includes(variacao.toUpperCase());
 
@@ -77,10 +77,10 @@ export const formatarConta = (conta, variacao, banco) => {
 
       return `51${contaNumerica.padStart(8, '0')}`;
     } else if (bancoItau) {
-       return `500${contaNumerica}`;
+      return `500${contaNumerica}`;
 
     } else if (bancoSantander) {
-       return `600${contaNumerica}`;
+      return `600${contaNumerica}`;
 
     } else { // É conta corrente ou outro tipo de conta do BB
       return contaNumerica; // Retorna a conta tratada (com o X, se houver)
@@ -101,180 +101,186 @@ export const formatarValor = (valor) => {
 
 // Função para validar CPF
 export const validarCPF = (cpf) => {
-    if (!cpf) return false;
+  if (!cpf) return false;
 
-    const cpfNumerico = cpf.replace(/\D/g, '');
-    if (cpfNumerico.length !== 11 || /^(\d)\1{10}$/.test(cpfNumerico)) {
-        return false;
-    }
+  const cpfNumerico = cpf.replace(/\D/g, '');
+  if (cpfNumerico.length !== 11 || /^(\d)\1{10}$/.test(cpfNumerico)) {
+    return false;
+  }
 
-    let soma = 0;
-    let resto;
+  let soma = 0;
+  let resto;
 
-    for (let i = 1; i <= 9; i++) {
-        soma += parseInt(cpfNumerico.substring(i - 1, i)) * (11 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpfNumerico.substring(9, 10))) return false;
+  for (let i = 1; i <= 9; i++) {
+    soma += parseInt(cpfNumerico.substring(i - 1, i)) * (11 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpfNumerico.substring(9, 10))) return false;
 
-    soma = 0;
-    for (let i = 1; i <= 10; i++) {
-        soma += parseInt(cpfNumerico.substring(i - 1, i)) * (12 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpfNumerico.substring(10, 11))) return false;
+  soma = 0;
+  for (let i = 1; i <= 10; i++) {
+    soma += parseInt(cpfNumerico.substring(i - 1, i)) * (12 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpfNumerico.substring(10, 11))) return false;
 
-    return true;
+  return true;
 };
 
 // Função para detectar CPFs duplicados
 export const detectarCPFsDuplicados = (fileData, indiceCPF) => {
-    const cpfCount = {};
+  const cpfCount = {};
 
-    fileData.forEach((linha, index) => {
-        if (index === 0) return; 
-        const cpf = linha[indiceCPF];
-        if (!cpf) return;
+  fileData.forEach((linha, index) => {
+    if (index === 0) return;
+    const cpf = linha[indiceCPF];
+    if (!cpf) return;
 
-        if (cpfCount[cpf]) {
-            cpfCount[cpf]++;
-        } else {
-            cpfCount[cpf] = 1;
-        }
-    });
+    if (cpfCount[cpf]) {
+      cpfCount[cpf]++;
+    } else {
+      cpfCount[cpf] = 1;
+    }
+  });
 
-    return Object.keys(cpfCount).reduce((acc, cpf) => {
-        if (cpfCount[cpf] > 1) acc[cpf] = true;
-        return acc;
-    }, {});
+  return Object.keys(cpfCount).reduce((acc, cpf) => {
+    if (cpfCount[cpf] > 1) acc[cpf] = true;
+    return acc;
+  }, {});
 };
 
 export default function ListaCredor() {
-    const [fileData, setFileData] = useState([]);
-    const [error, setError] = useState('');
-    const [copiedBlocks, setCopiedBlocks] = useState([]);
-    const [duplicadosCPF, setDuplicadosCPF] = useState({});
-    const [showScrollButton, setShowScrollButton] = useState(false);
+  const [fileData, setFileData] = useState([]);
+  const [error, setError] = useState('');
+  const [copiedBlocks, setCopiedBlocks] = useState([]);
+  const [duplicadosCPF, setDuplicadosCPF] = useState({});
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
-    const columnPositions = {
-        CPF: 0,
-        BANCO: 1,
-        AGENCIA: 2,
-        CONTA: 3,
-        VARIACAO: 4, // Certifique-se de que este índice esteja correto
-        VALOR: 5,
+  const columnPositions = {
+    CPF: 0,
+    BANCO: 1,
+    AGENCIA: 2,
+    CONTA: 3,
+    VARIACAO: 4, // Certifique-se de que este índice esteja correto
+    VALOR: 5,
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollButton(true);
+      } else {
+        setShowScrollButton(false);
+      }
     };
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 300) {
-                setShowScrollButton(true);
-            } else {
-                setShowScrollButton(false);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      setError('Por favor, selecione um arquivo.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const binaryStr = event.target.result;
+      try {
+        const workbook = XLSX.read(binaryStr, { type: 'binary' });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+        console.log('Dados lidos do Excel:', data);
+
+        const formattedData = data.map((row, rowIndex) => {
+          if (rowIndex === 0) return row;
+          return row.map((cell, cellIndex) => {
+            if (cellIndex === columnPositions.CPF) {
+              return formatarCPF(cell);
+            } else if (cellIndex === columnPositions.BANCO) {
+              return formatarBanco(cell);
+            } else if (cellIndex === columnPositions.AGENCIA) {
+              return formatarAgencia(cell);
+            } else if (cellIndex === columnPositions.CONTA) {
+              const variacao = row[columnPositions.VARIACAO]?.toUpperCase();
+              const banco = row[columnPositions.BANCO];
+              return formatarConta(cell, variacao, banco);
+            } else if (cellIndex === columnPositions.VALOR) {
+              return formatarValor(cell);
             }
-        };
+            return cell;
+          });
+        });
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
+        const indiceCPF = formattedData[0]?.indexOf('CPF');
+        if (indiceCPF === -1) {
+          setError('A coluna "CPF" não foi encontrada no arquivo.');
+          return;
+        }
+        const duplicados = detectarCPFsDuplicados(formattedData, indiceCPF);
 
-    const handleFileUpload = (e) => {
-        const file = e.target.files[0];
-        if (!file) {
-            setError('Por favor, selecione um arquivo.');
-            return;
+        const indiceVariacao = formattedData[0]?.indexOf('VARIAÇÃO');
+        if (indiceVariacao === -1) {
+          setError('A coluna "VARIAÇÃO" não foi encontrada no arquivo.');
+          return;
         }
 
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const binaryStr = event.target.result;
-            try {
-                const workbook = XLSX.read(binaryStr, { type: 'binary' });
-                const sheetName = workbook.SheetNames[0];
-                const sheet = workbook.Sheets[sheetName];
-                const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-                console.log('Dados lidos do Excel:', data);
-
-                const formattedData = data.map((row, rowIndex) => {
-                    if (rowIndex === 0) return row;
-                    return row.map((cell, cellIndex) => {
-                        if (cellIndex === columnPositions.CPF) {
-                            return formatarCPF(cell);
-                        } else if (cellIndex === columnPositions.BANCO) {
-                            return formatarBanco(cell);
-                        } else if (cellIndex === columnPositions.AGENCIA) {
-                            return formatarAgencia(cell);
-                        } else if (cellIndex === columnPositions.CONTA) {
-                            const variacao = row[columnPositions.VARIACAO]?.toUpperCase();
-                            const banco = row[columnPositions.BANCO];
-                            return formatarConta(cell, variacao, banco);
-                        } else if (cellIndex === columnPositions.VALOR) {
-                            return formatarValor(cell);
-                        }
-                        return cell;
-                    });
-                });
-
-
-                const indiceCPF = formattedData[0]?.indexOf('CPF');
-                if (indiceCPF === -1) {
-                    setError('A coluna "CPF" não foi encontrada no arquivo.');
-                    return;
-                }
-                const duplicados = detectarCPFsDuplicados(formattedData, indiceCPF);
-
-                setDuplicadosCPF(duplicados);
-                setFileData(formattedData);
-                setError('');
-            } catch (err) {
-                console.error('Erro ao processar o arquivo:', err);
-                setError('Erro ao processar o arquivo. Verifique a formatação das colunas.');
-            }
-        };
-
-        reader.readAsBinaryString(file);
+        setDuplicadosCPF(duplicados);
+        setFileData(formattedData);
+        setError('');
+      } catch (err) {
+        console.error('Erro ao processar o arquivo:', err);
+        setError('Erro ao processar o arquivo. Verifique a formatação das colunas.');
+      }
     };
 
-    const copiarBloco = (bloco, blocoIndex) => {
-        const indiceCPF = fileData[0].indexOf('CPF');
-        const indiceConta = fileData[0].indexOf('CONTA');
-        const indiceVariacao = fileData[0].indexOf('VARIAÇÃO');
+    reader.readAsBinaryString(file);
+  };
 
-        const conteudo = bloco.map(linha => {
-            let novaLinha = [...linha];
+  const copiarBloco = (bloco, blocoIndex) => {
+    const indiceCPF = fileData[0].indexOf('CPF');
+    const indiceConta = fileData[0].indexOf('CONTA');
+    const indiceVariacao = fileData[0].indexOf('VARIAÇÃO');
 
-            if (indiceCPF !== -1) {
-                novaLinha = [...novaLinha.slice(0, indiceCPF + 1), '', '', '', ...novaLinha.slice(indiceCPF + 1)];
-            }
+    const conteudo = bloco.map(linha => {
+      let novaLinha = [...linha];
 
-            if (indiceVariacao !== -1) {
-                novaLinha.splice(7, 1);
-            }
+      if (indiceCPF !== -1) {
+        novaLinha = [...novaLinha.slice(0, indiceCPF + 1), '', '', '', ...novaLinha.slice(indiceCPF + 1)];
+      }
 
-            if (indiceConta !== -1) {
-                novaLinha = [...novaLinha.slice(0, indiceConta + 4), '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ...novaLinha.slice(indiceConta + 4)];
-            }
+      if (indiceVariacao !== -1) {
+        novaLinha.splice(7, 1);
+      }
 
-            return novaLinha.join('\t');
-        }).join('\n\n');
+      if (indiceConta !== -1) {
+        novaLinha = [...novaLinha.slice(0, indiceConta + 4), '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ...novaLinha.slice(indiceConta + 4)];
+      }
 
-        navigator.clipboard.writeText(conteudo)
-            .then(() => setCopiedBlocks([...copiedBlocks, blocoIndex]))
-            .catch(() => alert('Erro ao copiar os dados.'));
-    };
+      return novaLinha.join('\t');
+    }).join('\n\n');
+
+    navigator.clipboard.writeText(conteudo)
+      .then(() => setCopiedBlocks([...copiedBlocks, blocoIndex]))
+      .catch(() => alert('Erro ao copiar os dados.'));
+  };
 
 
-    const blocos = [];
-    for (let i = 1; i < fileData.length; i += 7) {
-        blocos.push(fileData.slice(i, i + 7));
-    }
+  const blocos = [];
+  for (let i = 1; i < fileData.length; i += 7) {
+    blocos.push(fileData.slice(i, i + 7));
+  }
   return (
     <div className='container-lista1'>
       <NavbarCadastro /><br />
@@ -285,25 +291,24 @@ export default function ListaCredor() {
           <div className="intro-container">
             <h2 className="title2">Bem-vindo ao Sistema de Lista de Credores</h2>
             <p className="intro-text">
-              O sistema QualIF - Módulo Lista de Credor automatiza a formatação de dados financeiros de planilhas Excel, 
-              organizando informações de credores de forma eficiente e em conformidade com o ATULC do SIAFI. Sua interface intuitiva 
+              O sistema QualIF - Módulo Lista de Credor automatiza a formatação de dados financeiros de planilhas Excel,
+              organizando informações de credores de forma eficiente e em conformidade com o ATULC do SIAFI. Sua interface intuitiva
               elimina ajustes manuais e reduz erros. A planilha deve conter as seguintes colunas:
             </p>
           </div>
-          
+
           <p className="intro-text">CPF  |  BANCO  |  AGÊNCIA  |  CONTA  |  VARIAÇÃO  |  VALOR</p>
-          
-          <iframe
-            className="video-lista"
-            width="360"
-            height="210"
-            src="https://www.youtube.com/embed/f6l_bIeARRc?si=zqV8jXtsP1CjWVdF"
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-            ></iframe>
+
+          <iframe 
+          width="360" 
+          height="210" 
+          src="https://www.youtube.com/embed/biLS3js1d1c?si=LQJiEGwtrY-lu6Hp" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>  
+          </iframe>
 
           <label className="label-lista">
             <input
@@ -343,40 +348,40 @@ export default function ListaCredor() {
                         ))}
                       </tr>
                     </thead>
-                      <tbody>
-                        {bloco.map((linha, linhaIndex) => (
-                            <tr key={linhaIndex} >
-                                {linha.map((celula, celulaIndex) => {
-                                    const isDuplicate = duplicadosCPF[celula];
-                                    const isValid = validarCPF(celula);
-                                    const tooltip = !isValid
-                                        ? 'CPF inválido'
-                                        : isDuplicate
-                                        ? 'CPF duplicado'
-                                        : '';
-                                    const className = celulaIndex === columnPositions.CPF && !isValid
-                                        ? 'cpf-invalido'
-                                        : celulaIndex === columnPositions.CPF && isDuplicate
-                                        ? 'cpf-duplicado'
-                                        : '';
-                                    const variacao = linha[columnPositions.VARIACAO]?.toUpperCase();
-                                    const isPoupanca = ['CONTA POUPANÇA', 'CONTA POUPANCA', 'POUPANCA', 'POUPANÇA', 'P'].includes(variacao);
-                                    const isVariacaoCell = celulaIndex === columnPositions.VARIACAO; // Nova variável
+                    <tbody>
+                      {bloco.map((linha, linhaIndex) => (
+                        <tr key={linhaIndex} >
+                          {linha.map((celula, celulaIndex) => {
+                            const isDuplicate = duplicadosCPF[celula];
+                            const isValid = validarCPF(celula);
+                            const tooltip = !isValid
+                              ? 'CPF inválido'
+                              : isDuplicate
+                                ? 'CPF duplicado'
+                                : '';
+                            const className = celulaIndex === columnPositions.CPF && !isValid
+                              ? 'cpf-invalido'
+                              : celulaIndex === columnPositions.CPF && isDuplicate
+                                ? 'cpf-duplicado'
+                                : '';
+                            const variacao = linha[columnPositions.VARIACAO]?.toUpperCase();
+                            const isPoupanca = ['CONTA POUPANÇA', 'CONTA POUPANCA', 'POUPANCA', 'POUPANÇA', 'P'].includes(variacao);
+                            const isVariacaoCell = celulaIndex === columnPositions.VARIACAO; // Nova variável
 
-                                    const cellClassName = `${className} ${isVariacaoCell && isPoupanca ? 'linha-poupanca' : ''}`;
+                            const cellClassName = `${className} ${isVariacaoCell && isPoupanca ? 'linha-poupanca' : ''}`;
 
-                                    return (
-                                        <td
-                                            key={celulaIndex}
-                                            className={cellClassName}
-                                            title={tooltip}
-                                        >
-                                            {celula || '-'}
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        ))}
+                            return (
+                              <td
+                                key={celulaIndex}
+                                className={cellClassName}
+                                title={tooltip}
+                              >
+                                {celula || '-'}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      ))}
                     </tbody>
                   </table><br />
                 </div>
