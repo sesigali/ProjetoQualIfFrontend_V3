@@ -1,6 +1,8 @@
+import React from "react";
 import Footer from "../../components/Footer/footer";
 import './homeTeste.css';
 import Image from "./Imagem3.png";
+
 export default function HomeTeste() {
 
 
@@ -18,7 +20,6 @@ export default function HomeTeste() {
                 </div>
                 <div className="video1">
                     <iframe 
-                    className="video-lista"
                     width="560" 
                     height="315" 
                     src="https://www.youtube.com/embed/pGykxhx6DsE?si=Aujnt3GOsztbYgLE" 
