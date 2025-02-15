@@ -43,7 +43,7 @@ export default function NavbarCadastro() {
 
                 <div>
                     <Link to='/navbarHome'>
-                        < FaRegMinusSquare className='btn-cadastro-fechar1' title='Voltar página principal' />
+                        {/*< FaRegMinusSquare className='btn-cadastro-fechar1' title='Voltar página principal' />*/}
                     </Link>
                 </div>
 

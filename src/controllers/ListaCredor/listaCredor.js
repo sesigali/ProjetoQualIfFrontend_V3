@@ -372,15 +372,15 @@ export default function ListaCredor() {
 
           <p className="intro-text">CPF  |  BANCO  |  AGÊNCIA  |  CONTA  |  VARIAÇÃO  |  VALOR</p>
 
-          <iframe
-            width="360"
-            height="210"
-            src="https://www.youtube.com/embed/biLS3js1d1c?si=LQJiEGwtrY-lu6Hp"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
+          <iframe 
+          width="360" 
+          height="210" 
+          src="https://www.youtube.com/embed/biLS3js1d1c?si=LQJiEGwtrY-lu6Hp" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>  
           </iframe>
 
           <label className="label-lista">
