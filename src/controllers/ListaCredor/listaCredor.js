@@ -184,6 +184,70 @@ export default function ListaCredor() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // const handleFileUpload = (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) {
+  //     setError('Por favor, selecione um arquivo.');
+  //     return;
+  //   }
+
+  //   const reader = new FileReader();
+  //   reader.onload = (event) => {
+  //     const binaryStr = event.target.result;
+  //     try {
+  //       const workbook = XLSX.read(binaryStr, { type: 'binary' });
+  //       const sheetName = workbook.SheetNames[0];
+  //       const sheet = workbook.Sheets[sheetName];
+  //       const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+  //       console.log('Dados lidos do Excel:', data);
+
+  //       const formattedData = data.map((row, rowIndex) => {
+  //         if (rowIndex === 0) return row;
+  //         return row.map((cell, cellIndex) => {
+  //           if (cellIndex === columnPositions.CPF) {
+  //             return formatarCPF(cell);
+  //           } else if (cellIndex === columnPositions.BANCO) {
+  //             return formatarBanco(cell);
+  //           } else if (cellIndex === columnPositions.AGENCIA) {
+  //             return formatarAgencia(cell);
+  //           } else if (cellIndex === columnPositions.CONTA) {
+  //             const variacao = row[columnPositions.VARIACAO]?.toUpperCase();
+  //             const banco = row[columnPositions.BANCO];
+  //             return formatarConta(cell, variacao, banco);
+  //           } else if (cellIndex === columnPositions.VALOR) {
+  //             return formatarValor(cell);
+  //           }
+  //           return cell;
+  //         });
+  //       });
+
+
+  //       const indiceCPF = formattedData[0]?.indexOf('CPF');
+  //       if (indiceCPF === -1) {
+  //         setError('A coluna "CPF" não foi encontrada no arquivo.');
+  //         return;
+  //       }
+  //       const duplicados = detectarCPFsDuplicados(formattedData, indiceCPF);
+
+  //       const indiceVariacao = formattedData[0]?.indexOf('VARIAÇÃO');
+  //       if (indiceVariacao === -1) {
+  //         setError('A coluna "VARIAÇÃO" não foi encontrada no arquivo.');
+  //         return;
+  //       }
+
+  //       setDuplicadosCPF(duplicados);
+  //       setFileData(formattedData);
+  //       setError('');
+  //     } catch (err) {
+  //       console.error('Erro ao processar o arquivo:', err);
+  //       setError('Erro ao processar o arquivo. Verifique a formatação das colunas.');
+  //     }
+  //   };
+
+  //   reader.readAsBinaryString(file);
+  // };
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) {
@@ -198,12 +262,18 @@ export default function ListaCredor() {
         const workbook = XLSX.read(binaryStr, { type: 'binary' });
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
-        const data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+        let data = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-        console.log('Dados lidos do Excel:', data);
+        console.log('Dados lidos do Excel antes do corte:', data);
+
+        // Cortando os dados para ler apenas até a coluna de índice 5
+        data = data.map(row => row.slice(0, 6));
+
+        console.log('Dados após corte de colunas:', data);
 
         const formattedData = data.map((row, rowIndex) => {
           if (rowIndex === 0) return row;
+
           return row.map((cell, cellIndex) => {
             if (cellIndex === columnPositions.CPF) {
               return formatarCPF(cell);
@@ -222,7 +292,6 @@ export default function ListaCredor() {
           });
         });
 
-
         const indiceCPF = formattedData[0]?.indexOf('CPF');
         if (indiceCPF === -1) {
           setError('A coluna "CPF" não foi encontrada no arquivo.');
@@ -239,14 +308,18 @@ export default function ListaCredor() {
         setDuplicadosCPF(duplicados);
         setFileData(formattedData);
         setError('');
+
       } catch (err) {
         console.error('Erro ao processar o arquivo:', err);
         setError('Erro ao processar o arquivo. Verifique a formatação das colunas.');
       }
+
+
     };
 
     reader.readAsBinaryString(file);
   };
+
 
   const copiarBloco = (bloco, blocoIndex) => {
     const indiceCPF = fileData[0].indexOf('CPF');
@@ -299,15 +372,15 @@ export default function ListaCredor() {
 
           <p className="intro-text">CPF  |  BANCO  |  AGÊNCIA  |  CONTA  |  VARIAÇÃO  |  VALOR</p>
 
-          <iframe 
-          width="360" 
-          height="210" 
-          src="https://www.youtube.com/embed/biLS3js1d1c?si=LQJiEGwtrY-lu6Hp" 
-          title="YouTube video player" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-          referrerpolicy="strict-origin-when-cross-origin" 
-          allowfullscreen>  
+          <iframe
+            width="360"
+            height="210"
+            src="https://www.youtube.com/embed/biLS3js1d1c?si=LQJiEGwtrY-lu6Hp"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
           </iframe>
 
           <label className="label-lista">
