@@ -16,6 +16,7 @@ export default function RelatorioInfo() {
     const [complementacao, setComplementacao] = useState({});
     const [compromisso, setCompromisso] = useState({});
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const fetchData = async () => {
             try {

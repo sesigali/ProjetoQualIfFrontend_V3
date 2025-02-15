@@ -300,6 +300,7 @@ export default function ListaCredor() {
           <p className="intro-text">CPF  |  BANCO  |  AGÊNCIA  |  CONTA  |  VARIAÇÃO  |  VALOR</p>
 
           <iframe 
+          className="video-lista"
           width="360" 
           height="210" 
           src="https://www.youtube.com/embed/biLS3js1d1c?si=LQJiEGwtrY-lu6Hp" 
