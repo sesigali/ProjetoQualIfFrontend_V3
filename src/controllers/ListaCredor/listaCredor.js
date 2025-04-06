@@ -282,7 +282,7 @@ export default function ListaCredor() {
             } else if (cellIndex === columnPositions.AGENCIA) {
               return formatarAgencia(cell);
             } else if (cellIndex === columnPositions.CONTA) {
-              const variacao = row[columnPositions.VARIACAO]?.toUpperCase();
+              const variacao = row[columnPositions.VARIACAO] //?.toUpperCase();
               const banco = row[columnPositions.BANCO];
               return formatarConta(cell, variacao, banco);
             } else if (cellIndex === columnPositions.VALOR) {
@@ -294,16 +294,16 @@ export default function ListaCredor() {
 
         const indiceCPF = formattedData[0]?.indexOf('CPF');
         if (indiceCPF === -1) {
-          setError('A coluna "CPF" não foi encontrada no arquivo.');
+          setError('A coluna "CPF" não foi encontrada no arquivo, verifique se está escrito em maiúsculo.');
           return;
         }
         const duplicados = detectarCPFsDuplicados(formattedData, indiceCPF);
 
-        const indiceVariacao = formattedData[0]?.indexOf('VARIAÇÃO');
-        if (indiceVariacao === -1) {
-          setError('A coluna "VARIAÇÃO" não foi encontrada no arquivo.');
-          return;
-        }
+        // const indiceVariacao = formattedData[0]?.indexOf('VARIAÇÃO');
+        // if (indiceVariacao === -1) {
+        //   setError('A coluna "VARIAÇÃO" não foi encontrada no arquivo.');
+        //   return;
+        // }
 
         setDuplicadosCPF(duplicados);
         setFileData(formattedData);
@@ -321,33 +321,92 @@ export default function ListaCredor() {
   };
 
 
-  const copiarBloco = (bloco, blocoIndex) => {
-    const indiceCPF = fileData[0].indexOf('CPF');
-    const indiceConta = fileData[0].indexOf('CONTA');
-    const indiceVariacao = fileData[0].indexOf('VARIAÇÃO');
+  // const copiarBloco = (bloco, blocoIndex) => {
+  //   const indiceCPF = fileData[0].indexOf('CPF');
+  //   const indiceConta = fileData[0].indexOf('Conta');
+  //   const indiceVariacao = fileData[0].indexOf('Variação');
 
+  //   const conteudo = bloco.map(linha => {
+  //     let novaLinha = [...linha];
+
+  //     if (indiceCPF !== -1) {
+  //       novaLinha = [...novaLinha.slice(0, indiceCPF + 1), '', '', '', ...novaLinha.slice(indiceCPF + 1)];
+  //     }
+
+  //     if (indiceVariacao !== -1) {
+  //       novaLinha.splice(7, 1);
+  //     }
+
+  //     if (indiceConta !== -1) {
+  //       novaLinha = [...novaLinha.slice(0, indiceConta + 4), '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ...novaLinha.slice(indiceConta + 4)];
+  //     }
+
+  //     return novaLinha.join('\t');
+  //   }).join('\n\n');
+
+  //   navigator.clipboard.writeText(conteudo)
+  //     .then(() => setCopiedBlocks([...copiedBlocks, blocoIndex]))
+  //     .catch(() => alert('Erro ao copiar os dados.'));
+  // };
+
+  const normalizarTexto = (texto) =>
+    texto.normalize('NFD')
+         .replace(/[\u0300-\u036f]/g, '')
+         .trim()
+         .toLowerCase();
+  
+  const encontrarIndiceColuna = (cabecalho, opcoesDeNome) => {
+    const cabecalhoNormalizado = cabecalho.map(c => normalizarTexto(c));
+    for (let i = 0; i < cabecalhoNormalizado.length; i++) {
+      for (let opcao of opcoesDeNome) {
+        if (cabecalhoNormalizado[i].includes(normalizarTexto(opcao))) {
+          return i;
+        }
+      }
+    }
+    return -1; // Não encontrado
+  };
+  
+  const copiarBloco = (bloco, blocoIndex) => {
+    const cabecalho = fileData[0];
+  
+    const indiceCPF = encontrarIndiceColuna(cabecalho, ['cpf', 'c.p.f', 'documento']);
+    const indiceConta = encontrarIndiceColuna(cabecalho, ['conta', 'n conta', 'numero da conta', 'nº conta']);
+    const indiceVariacao = encontrarIndiceColuna(cabecalho, ['variacao', 'variação', 'tipo', 'tipo conta']);
+  
     const conteudo = bloco.map(linha => {
       let novaLinha = [...linha];
-
+  
       if (indiceCPF !== -1) {
-        novaLinha = [...novaLinha.slice(0, indiceCPF + 1), '', '', '', ...novaLinha.slice(indiceCPF + 1)];
+        novaLinha = [
+          ...novaLinha.slice(0, indiceCPF + 1),
+          '', '', '', // inserindo colunas extras após o CPF
+          ...novaLinha.slice(indiceCPF + 1),
+        ];
       }
-
+  
       if (indiceVariacao !== -1) {
-        novaLinha.splice(7, 1);
+        // remove elemento na posição original (você pode adaptar o tratamento se quiser manter e só mover)
+        novaLinha.splice(7,1); 
       }
-
+  
       if (indiceConta !== -1) {
-        novaLinha = [...novaLinha.slice(0, indiceConta + 4), '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ...novaLinha.slice(indiceConta + 4)];
+        // Adiciona várias colunas após a conta (ajuste esse número conforme necessário)
+        novaLinha = [
+          ...novaLinha.slice(0, indiceConta + 4),
+            '', '', '', '', '', '', '', '','','', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
+          ...novaLinha.slice(indiceConta + 4),
+        ];
       }
-
+  
       return novaLinha.join('\t');
     }).join('\n\n');
-
+  
     navigator.clipboard.writeText(conteudo)
       .then(() => setCopiedBlocks([...copiedBlocks, blocoIndex]))
       .catch(() => alert('Erro ao copiar os dados.'));
   };
+  
 
 
   const blocos = [];
